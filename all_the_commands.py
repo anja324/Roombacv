@@ -44,7 +44,7 @@ async def remove_points(message):
     :param message: raw user inputted message
     :return: None
     """
-    if message.author.name != "xlexious":
+    if message.author.name != "anja324":
         return
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
