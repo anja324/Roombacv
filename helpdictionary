@@ -1,0 +1,4 @@
+!help:  helps
+!score <@user>:  retrieves a user's score
+!topfive:  fetches the users with the top five highest scores
+!spritz <@user> <number>:  available only to Anja, deducts points and makes dampness
