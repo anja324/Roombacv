@@ -11,7 +11,9 @@ from identify_and_run_commands import create_command_dict, command_exists
 from scoring import *
 
 #   connects to the server via id
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 
 #   global variables
 resident_roster = []
