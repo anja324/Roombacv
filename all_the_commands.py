@@ -71,4 +71,4 @@ async def need_help(message):
         for line in help_text:
             stripped_line = line.strip()
             help_message += f"{stripped_line}\n"
-        await JsonConfig.channel.botTest.send(help_message)
+        await JsonConfig.channel.botSpam.send(help_message)

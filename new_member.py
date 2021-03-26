@@ -13,7 +13,7 @@ async def accept_new_resident(member, resident_roster):
 
     #   Greets member
     await JsonConfig.channel.audits.send(f"New User: {member}!")
-    await JsonConfig.channel.general.send(f"You have arrived at Anja's House!  Welcome to the family <3.  "
+    await JsonConfig.channel.lounge.send(f"You have arrived at Anja's House!  Welcome to the family <3.  "
                                           f"Please mind the rules, found in {JsonConfig.channel.rules.mention}."
                                           f"If you are a rat and wish to be added to the 'Fuel Rat' group, please hit up an admin or a mod.")
 
