@@ -1,14 +1,10 @@
 import discord
-import re
-from json_tokens import *
-from Resident import Resident
-from normalization import *
-from explicit_words import *
-from easter_eggs import *
-from database_functions import *
-from new_member import *
-from identify_and_run_commands import create_command_dict, command_exists
-from scoring import *
+from utilities.json_tokens import *
+from modules.explicit_words import *
+from modules.easter_eggs import *
+from resident_member_info.new_member import *
+from commands_and_scoring.identify_and_run_commands import create_command_dict, command_exists
+from commands_and_scoring.scoring import *
 
 #   connects to the server via id
 intents = discord.Intents.default()

@@ -1,5 +1,5 @@
-from database_functions import *
-from normalization import *
+from database.database_functions import *
+from utilities.normalization import *
 
 
 async def per_text_message_score(message):

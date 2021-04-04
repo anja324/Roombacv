@@ -14,7 +14,7 @@ def connect_andor_create_resident_database():
     """
 
     #   creates a connection with the database
-    res_db_conn = sqlite3.connect("resident_database.db")
+    res_db_conn = sqlite3.connect("resident_member_info/resident_database.db")
 
     #   creates a cursor object for accessing and altering pieces of the database
     cursor = res_db_conn.cursor()
@@ -75,7 +75,7 @@ async def retrieve_leaderboard():
     """
     gets name, score from the database
 
-    :return:list of tuples (name, score)
+    :return:list of tuples (id, score)
     """
 
     retrieve_all_scores = "SELECT score, name FROM residents ORDER BY score DESC"

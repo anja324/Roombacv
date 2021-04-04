@@ -1,8 +1,9 @@
-from message_information_grabs import *
-from database_functions import *
-from json_tokens import JsonConfig
-from normalization import *
-from tools import *
+from utilities.message_information_grabs import *
+from database.database_functions import *
+from utilities.json_tokens import JsonConfig
+from utilities.normalization import *
+from utilities.tools import *
+from discord_items import client
 
 
 async def fetch_score(message):
@@ -29,11 +30,11 @@ async def fetch_leaderboard_top_five(message):
     :param message: Raw user inputted message object
     :return: None
     """
-    score_name_list = await retrieve_leaderboard()
-    placed_list = enumerate(score_name_list[:5], 1)
+    score_id_list = await retrieve_leaderboard()
+    placed_list = enumerate(score_id_list[:5], 1)
     top_five = "The top five residents are:\n"
-    for place, (score, resident) in placed_list:
-        top_five += f"{place}.  {resident}, {score} points\n"
+    for place, (score, name) in placed_list:
+        top_five += f"{place}.  {name}, {score} points\n"
     await message.channel.send(top_five)
 
 
@@ -66,7 +67,7 @@ async def need_help(message):
     if len(no_punct_list) > 1:
         await message.channel.send(f"!help takes no parameters.")
     else:
-        help_text = open("helpdictionary", "r")
+        help_text = open("../text_files/helpdictionary", "r")
         help_message = "Roomba can perform the following tasks:\n"
         for line in help_text:
             stripped_line = line.strip()

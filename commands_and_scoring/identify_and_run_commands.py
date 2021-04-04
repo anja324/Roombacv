@@ -1,5 +1,5 @@
 # noinspection PyUnresolvedReferences
-from all_the_commands import *
+from commands_and_scoring.all_the_commands import *
 
 
 # noinspection SpellCheckingInspection
@@ -9,7 +9,7 @@ def create_command_dict():
 
     :return: command_dict
     """
-    command_file = open("commandslist", "r")
+    command_file = open("text_files/commandslist", "r")
     command_dict = {}
     for line in command_file:
         split_line = line.split(" ", 1)

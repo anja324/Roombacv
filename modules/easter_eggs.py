@@ -7,7 +7,7 @@ def create_easter_egg_dict():
     :return:dictionary of all easter eggs
     """
 
-    response_dict = open("easter_egg_responses", "r")
+    response_dict = open("text_files/easter_egg_responses", "r")
     easter_egg_dict = {}
     for line in response_dict:
         split_line = line.split(" ", 1)

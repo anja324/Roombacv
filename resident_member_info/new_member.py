@@ -1,5 +1,5 @@
-from Resident import Resident
-from json_tokens import JsonConfig
+from resident_member_info.Resident import Resident
+from utilities.json_tokens import JsonConfig
 
 
 async def accept_new_resident(member, resident_roster):

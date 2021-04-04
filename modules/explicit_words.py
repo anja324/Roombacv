@@ -1,4 +1,4 @@
-from json_tokens import JsonConfig
+from utilities.json_tokens import JsonConfig
 
 
 def create_explicit_array():
@@ -8,7 +8,7 @@ def create_explicit_array():
     :return: explicit_array
     """
     # noinspection SpellCheckingInspection
-    explicit_arr = open("explicitarray", "r")
+    explicit_arr = open("text_files/explicitarray", "r")
     explicit_array = []
     for line in explicit_arr:
         stripped_line = line.strip()

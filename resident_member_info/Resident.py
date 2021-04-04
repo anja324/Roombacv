@@ -1,4 +1,4 @@
-from database_functions import Database
+from database.database_functions import Database
 
 
 class Resident:
