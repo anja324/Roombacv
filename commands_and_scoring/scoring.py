@@ -20,12 +20,16 @@ async def per_text_message_score(message):
 
 async def raincoat_die_roll(user_id, message):
     die_to_roll = await retrieve_raincoat_die_roll(user_id)
-    roll_it = random.randint(1, die_to_roll)
-    if roll_it == 1:
+    if die_to_roll == 1:
         await remove_raincoat(user_id)
         await message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
     else:
-        await increase_raincoat_break_prob(user_id)
+        roll_it = random.randint(1, die_to_roll)
+        if roll_it == 1:
+            await remove_raincoat(user_id)
+            await message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
+        else:
+            await increase_raincoat_break_prob(user_id)
 
 
 
