@@ -59,7 +59,7 @@ async def remove_points(message):
             current_score = await score_query(user_id)
             revised_score = current_score - number
             await change_score(user_id, revised_score)
-            await message.channel.send(f"{user_nick}'s score has been docked {number} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
+            await JsonConfig.channel.botSpam.send(f"{user_nick}'s score has been docked {number} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def need_help(message):
