@@ -42,7 +42,7 @@ async def fetch_leaderboard_top_five(message):
         await JsonConfig.channel.botSpam.send(top_five)
 
 
-async def remove_points(message):
+async def spritz(message):
     """
     removes points from the designated user
 

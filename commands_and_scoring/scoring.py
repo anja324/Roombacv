@@ -15,4 +15,5 @@ async def per_text_message_score(message):
     await add_to_score(user_id, amount_to_add)
     return
 
+async def raincoat_die_roll():
 
