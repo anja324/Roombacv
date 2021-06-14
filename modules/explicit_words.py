@@ -35,7 +35,7 @@ async def explicit_words(explicit_array, message, no_punct_list):
                                                      f"Author: {message.author}\n"
                                                      f"Message: {message.content}```")
                 await message.delete()
-                await message.channel.send(f"You have sent a message which contains a racial slur on my list."
-                                           f"There is no place for that here."
-                                           f"Please reference {JsonConfig.channel.rules} for further information."
+                await message.channel.send(f"You have sent a message which contains a racial slur on my list.  "
+                                           f"There is no place for that here.  "
+                                           f"Please reference {JsonConfig.channel.rules} for further information.  "
                                            f"This is your **only** warning.")
