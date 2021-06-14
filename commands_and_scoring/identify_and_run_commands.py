@@ -28,7 +28,7 @@ async def command_exists(message, command_dict, lowered_message):
     :return: maybe_command, command_parameter_id
     """
     if lowered_message.startswith("!"):
-        no_exclaim = message.content.replace("!", "", 1)
+        no_exclaim = lowered_message.content.replace("!", "", 1)
         split_message = no_exclaim.split(" ")
         if len(split_message) <= 3:
             maybe_command = command_dict.get(split_message[0])
