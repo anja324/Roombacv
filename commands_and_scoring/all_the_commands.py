@@ -67,7 +67,7 @@ async def need_help(message):
     if len(no_punct_list) > 1:
         await message.channel.send(f"!help takes no parameters.")
     else:
-        help_text = open("../text_files/helpdictionary", "r")
+        help_text = open("text_files/helpdictionary", "r")
         help_message = "Roomba can perform the following tasks:\n"
         for line in help_text:
             stripped_line = line.strip()
