@@ -114,5 +114,9 @@ async def nom(message):
     await message.channel.send("https://tenor.com/view/cookies-gif-14785632")
 
 
+async def uwu(message):
+    await message.channel.send("https://tenor.com/view/uwu-cat-heart-gif-19132889")
+
+
 ##  async def buy_raincoat(message):
 
