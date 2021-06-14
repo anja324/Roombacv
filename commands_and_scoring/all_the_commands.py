@@ -20,7 +20,7 @@ async def fetch_score(message):
         await message.channel.send(f"Error: User or score not found.")
         await JsonConfig.channel.audits.send(f"Score query returned None in {message.channel}.")
     else:
-        await message.channel.send(f"{user_nick}'s current score is {score}.")
+        await JsonConfig.channel.botSpam.send(f"{user_nick}'s current score is {score}.")
 
 
 async def fetch_leaderboard_top_five(message):
