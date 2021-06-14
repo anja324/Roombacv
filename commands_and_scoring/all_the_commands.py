@@ -64,9 +64,9 @@ async def spritz(message):
         elif is_int(no_punct_list[2]) is None:
             await message.channel.send("Please use an integer to properly spritz.")
         else:
-            raincoat_status = retrieve_raincoat()
+            user_id, user_nick = await mentions_information(message)
+            raincoat_status = await retrieve_raincoat(user_id)
             if raincoat_status == 1:
-                user_id, user_nick = await mentions_information(message)
                 await raincoat_die_roll(user_id, message)
                 await message.channel.send("Your raincoat has kept you from being spritzed.")
                 return
