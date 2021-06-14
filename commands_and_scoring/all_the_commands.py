@@ -3,6 +3,7 @@ from database.database_functions import *
 from utilities.json_tokens import JsonConfig
 from utilities.normalization import *
 from utilities.tools import *
+from commands_and_scoring.scoring import *
 from discord_items import client
 
 
@@ -64,10 +65,17 @@ async def spritz(message):
         elif is_int(no_punct_list[2]) is None:
             await message.channel.send("Please use an integer to properly spritz.")
         else:
-            amount_to_deduct = is_int(no_punct_list[2])
-            user_id, user_nick = await mentions_information(message)
-            await deduct_from_score(user_id, amount_to_deduct)
-            await JsonConfig.channel.botSpam.send(f"{user_nick}'s score has been docked {amount_to_deduct} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
+            raincoat_status = retrieve_raincoat()
+            if raincoat_status == 1:
+                user_id, user_nick = await mentions_information(message)
+                await raincoat_die_roll(user_id, message)
+                message.channel.send("Your raincoat has kept you from being spritzed.")
+                return
+            else:
+                amount_to_deduct = is_int(no_punct_list[2])
+                user_id, user_nick = await mentions_information(message)
+                await deduct_from_score(user_id, amount_to_deduct)
+                await JsonConfig.channel.botSpam.send(f"{user_nick}'s score has been docked {amount_to_deduct} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def need_help(message):

@@ -1,5 +1,7 @@
 from database.database_functions import *
 from utilities.normalization import *
+import random
+from database.database_functions import *
 
 
 async def per_text_message_score(message):
@@ -15,5 +17,19 @@ async def per_text_message_score(message):
     await add_to_score(user_id, amount_to_add)
     return
 
-async def raincoat_die_roll():
+
+async def raincoat_die_roll(user_id, message):
+    die_to_roll = retrieve_raincoat_die_roll(user_id)
+    roll_it = random.randint(1, die_to_roll)
+    if roll_it == 1:
+        message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
+        remove_raincoat(user_id)
+        message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
+    else:
+        increase_raincoat_break_prob(user_id)
+
+
+
+
+
 

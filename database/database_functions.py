@@ -118,3 +118,17 @@ async def retrieve_raincoat_die_roll(user_id):
     Database.cursor.execute(retrieve_die_roll, (user_id,))
     raincoat_die_roll, = Database.cursor.fetchone()
     return raincoat_die_roll
+
+
+async def remove_raincoat(user_id):
+    change_it = "UPDATE residents SET raincoat = 0 WHERE id_number = ?"
+    Database.cursor.execute(change_it, (user_id,))
+    die_roll_reset = "UPDATE residents SET raincoat_die_roll = 0"
+    Database.cursor.execute(die_roll_reset)
+    Database.res_db_conn.commit()
+
+
+async def increase_raincoat_break_prob(user_id):
+    change_it = "UPDATE residents SET raincoat_die_roll - 1 = raincoat_die_roll"
+    Database.cursor.execute(change_it, (user_id,))
+    Database.res_db_conn.commit()
