@@ -110,5 +110,9 @@ async def cookie(message):
             await JsonConfig.channel.botSpam.send(f"{user_nick} has been given {number} cookies. 🍪")
 
 
+async def nom(message):
+    await message.channel.send("https://tenor.com/view/cookies-gif-14785632")
+
+
 ##  async def buy_raincoat(message):
 

@@ -3,3 +3,4 @@
 !topfive:  fetches the users with the top five highest scores (alias: !top5)
 !spritz <@user> <number>:  available only to Anja and Mods, deducts points and makes dampness
 !cookie <@user> <number>: available only to Anja and Mods, gibs cookies worth 10 AnjaPoints(tm)
+!nom:  provides the user with a nomming experience
