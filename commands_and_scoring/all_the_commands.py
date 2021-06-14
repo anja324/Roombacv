@@ -67,8 +67,8 @@ async def spritz(message):
             user_id, user_nick = await mentions_information(message)
             raincoat_status = await retrieve_raincoat(user_id)
             if raincoat_status == 1:
-                await raincoat_die_roll(user_id, message)
                 await message.channel.send("Your raincoat has kept you from being spritzed.")
+                await raincoat_die_roll(user_id, message)
                 return
             else:
                 amount_to_deduct = is_int(no_punct_list[2])
