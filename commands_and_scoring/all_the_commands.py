@@ -172,6 +172,6 @@ async def buy_raincoat(message):
         user_id = message.author.id
         amount_to_deduct = 500
         await deduct_from_score(user_id, amount_to_deduct)
-        message.channel.send("You have purchased a raincoat for 500 AnjaPoints™️.")
+        await message.channel.send("You have purchased a raincoat for 500 AnjaPoints™️.")
 
 
