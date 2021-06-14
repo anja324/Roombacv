@@ -30,12 +30,16 @@ async def fetch_leaderboard_top_five(message):
     :param message: Raw user inputted message object
     :return: None
     """
-    score_id_list = await retrieve_leaderboard()
-    placed_list = enumerate(score_id_list[:5], 1)
-    top_five = "The top five residents are:\n"
-    for place, (score, name) in placed_list:
-        top_five += f"{place}.  {name}, {score} points\n"
-    await JsonConfig.channel.botSpam.send(top_five)
+    no_punct_list, lowered_message, = tidying_caps_punct(message)
+    if len(no_punct_list) > 1:
+        await message.channel.send("This command does not take any parameters.")
+    else:
+        score_id_list = await retrieve_leaderboard()
+        placed_list = enumerate(score_id_list[:5], 1)
+        top_five = "The top five residents are:\n"
+        for place, (score, name) in placed_list:
+            top_five += f"{place}.  {name}, {score} points\n"
+        await JsonConfig.channel.botSpam.send(top_five)
 
 
 async def remove_points(message):
