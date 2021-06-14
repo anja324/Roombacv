@@ -123,7 +123,15 @@ async def nom(message):
 
 
 async def uwu(message):
-    await message.channel.send("https://tenor.com/view/uwu-cat-heart-gif-19132889")
+    user_id = message.author.id
+    current_score = await score_query(user_id)
+    if current_score >= 500:
+        revised_score = current_score - 500
+        await change_score(user_id, revised_score)
+        await message.channel.send("You have spent 500 AnjaPoints™️")
+        await message.channel.send("https://tenor.com/view/uwu-cat-heart-gif-19132889")
+    else:
+        message.channel.send("You cannot afford to uwu.")
 
 
 ##  async def buy_raincoat(message):
