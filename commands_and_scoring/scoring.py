@@ -11,8 +11,8 @@ async def per_text_message_score(message):
         score_addition = len(no_punct_list) * .5
 
     user_id = message.author.id
-    current_score = await score_query(user_id)
-
-    revised_score = current_score + score_addition
-    await change_score(user_id, revised_score)
+    amount_to_add = score_addition
+    await add_to_score(user_id, amount_to_add)
     return
+
+

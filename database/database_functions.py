@@ -58,16 +58,27 @@ async def score_query(user_id):
     #   TODO Make timestamp function
 
 
-async def change_score(user_id, revised_score):
+async def add_to_score(user_id, amount_to_add):
     """
-    changes the score of the specified user
-    :param user_id: the id of the specified user
-    :param revised_score: the new score
-    :return: None
+    adds the designated amount to the user's score
+    :param user_id: the id of the user whose information will change
+    :param amount_to_add: the number of points to be added
+    :return:
     """
+    change_it = "UPDATE residents SET score = score + ? WHERE id_number = ?"
+    Database.cursor.execute(change_it, (amount_to_add, user_id))
+    Database.res_db_conn.commit()
 
-    change_it = "UPDATE residents SET score = ? WHERE id_number = ?"
-    Database.cursor.execute(change_it, (revised_score, user_id))
+
+async def deduct_from_score(user_id, amount_to_deduct):
+    """
+    deducts the designated amount from the users score
+    :param user_id: the id of the user whose information will change
+    :param amount_to_deduct: the number of points to be added
+    :return:
+    """
+    change_it = "UPDATE residents SET score = score - ? WHERE id_number = ?"
+    Database.cursor.execute(change_it, (amount_to_deduct, user_id))
     Database.res_db_conn.commit()
 
 
@@ -82,3 +93,18 @@ async def retrieve_leaderboard():
     Database.cursor.execute(retrieve_all_scores)
     score_name_list = Database.cursor.fetchall()
     return score_name_list
+
+
+async def retrieve_raincoat(user_id):
+
+    retrieve_raincoat_status = "SELECT raincoat FROM residents WHERE id_number == (?)"
+    Database.cursor.execute(retrieve_raincoat_status, (user_id,))
+    raincoat_status, = Database.cursor.fetchone()
+    return raincoat_status
+
+
+async def raincoat_db_add(user_id):
+
+    change_it = "UPDATE residents SET raincoat = 1 WHERE id_number = ?"
+    Database.cursor.execute(change_it, (user_id))
+    Database.res_db_conn.commit()

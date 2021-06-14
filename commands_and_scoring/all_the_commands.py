@@ -64,12 +64,10 @@ async def remove_points(message):
         elif is_int(no_punct_list[2]) is None:
             await message.channel.send("Please use an integer to properly spritz.")
         else:
-            number = is_int(no_punct_list[2])
+            amount_to_deduct = is_int(no_punct_list[2])
             user_id, user_nick = await mentions_information(message)
-            current_score = await score_query(user_id)
-            revised_score = current_score - number
-            await change_score(user_id, revised_score)
-            await JsonConfig.channel.botSpam.send(f"{user_nick}'s score has been docked {number} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
+            await deduct_from_score(user_id, amount_to_deduct)
+            await JsonConfig.channel.botSpam.send(f"{user_nick}'s score has been docked {amount_to_deduct} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def need_help(message):
@@ -113,9 +111,8 @@ async def cookie(message):
         else:
             number = is_int(no_punct_list[2])
             user_id, user_nick = await mentions_information(message)
-            current_score = await score_query(user_id)
-            revised_score = current_score + (number * 10)
-            await change_score(user_id, revised_score)
+            amount_to_add = 10
+            await add_to_score(user_id, amount_to_add)
             await JsonConfig.channel.botSpam.send(f"{user_nick} has been given {number} cookies. 🍪")
 
 
@@ -128,8 +125,8 @@ async def nom(message):
     user_id = message.author.id
     current_score = await score_query(user_id)
     if current_score >= 50:
-        revised_score = current_score - 50
-        await change_score(user_id, revised_score)
+        amount_to_deduct = 50
+        await deduct_from_score(user_id, amount_to_deduct)
         await message.channel.send("You have spent 50 AnjaPoints™️")
         await message.channel.send("https://tenor.com/view/cookies-gif-14785632")
     else:
@@ -145,13 +142,29 @@ async def uwu(message):
     user_id = message.author.id
     current_score = await score_query(user_id)
     if current_score >= 500:
-        revised_score = current_score - 500
-        await change_score(user_id, revised_score)
+        amount_to_deduct = 500
+        await deduct_from_score(user_id, amount_to_deduct)
         await message.channel.send("You have spent 500 AnjaPoints™️")
         await message.channel.send("https://tenor.com/view/uwu-cat-heart-gif-19132889")
     else:
         message.channel.send("You cannot afford to uwu.")
 
 
-#   async def buy_raincoat(message):
+async def buy_raincoat(message):
+    """
+    Buys a raincoat.
+    :param message: Raw user inputted message.
+    :return:
+    """
+    user_id = message.author.id
+    raincoat_status = retrieve_raincoat(user_id)
+    if raincoat_status == 1:
+        message.channel.send("You already own a raincoat.")
+    else:
+        raincoat_db_add(user_id)
+        user_id = message.author.id
+        amount_to_deduct = 500
+        deduct_from_score(user_id, amount_to_deduct)
+        message.channel.send("You have purchased a raincoat for 500 AnjaPoints™️.")
+
 
