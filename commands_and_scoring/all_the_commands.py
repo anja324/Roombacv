@@ -35,7 +35,7 @@ async def fetch_leaderboard_top_five(message):
     top_five = "The top five residents are:\n"
     for place, (score, name) in placed_list:
         top_five += f"{place}.  {name}, {score} points\n"
-    await message.channel.send(top_five)
+    await JsonConfig.channel.botSpam.send(top_five)
 
 
 async def remove_points(message):
