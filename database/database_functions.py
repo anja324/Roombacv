@@ -129,6 +129,6 @@ async def remove_raincoat(user_id):
 
 
 async def increase_raincoat_break_prob(user_id):
-    change_it = "UPDATE residents SET raincoat_die_roll = raincoat_die_roll - 1"
+    change_it = "UPDATE residents SET raincoat_die_roll = raincoat_die_roll - 1 WHERE id_number = (?)"
     Database.cursor.execute(change_it, (user_id,))
     Database.res_db_conn.commit()
