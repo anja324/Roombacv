@@ -73,7 +73,11 @@ async def remove_points(message):
 
 
 async def need_help(message):
-
+    """
+    Returns the user with a list of Roomba's current capabilities
+    :param message: The raw user inputted message
+    :return:
+    """
     no_punct_list, lowered_message, = tidying_caps_punct(message)
     if len(no_punct_list) > 1:
         await message.channel.send(f"!help takes no parameters.")
@@ -87,6 +91,11 @@ async def need_help(message):
 
 
 async def cookie(message):
+    """
+    Gives the mentioned user a "cookie" worth 10 points
+    :param message: The raw user inputted message
+    :return:
+    """
 
     authorized = False
     authorized_bakers = ["anja324", "abish", "xlexious"]
@@ -111,6 +120,11 @@ async def cookie(message):
 
 
 async def nom(message):
+    """
+    Posts a link containing a cookie monster gif and deducts 50 points from the user.
+    :param message: The raw user inputted message
+    :return:
+    """
     user_id = message.author.id
     current_score = await score_query(user_id)
     if current_score >= 50:
@@ -123,6 +137,11 @@ async def nom(message):
 
 
 async def uwu(message):
+    """
+    Posts a gif of a weeb uwu and deducts 500 points from the user
+    :param message: The raw user inputted message
+    :return:
+    """
     user_id = message.author.id
     current_score = await score_query(user_id)
     if current_score >= 500:
@@ -134,5 +153,5 @@ async def uwu(message):
         message.channel.send("You cannot afford to uwu.")
 
 
-##  async def buy_raincoat(message):
+#   async def buy_raincoat(message):
 
