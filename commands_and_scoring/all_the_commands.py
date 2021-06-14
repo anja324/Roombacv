@@ -88,18 +88,26 @@ async def need_help(message):
 
 async def cookie(message):
 
-    no_punct_list, lowered_message, = tidying_caps_punct(message)
-    if len(no_punct_list) != 3:
-        await message.channel.send("Incorrect command structure.  Please consult !help for additional assistance.")
-    elif is_int(no_punct_list[2]) is None:
-        await message.channel.send("Please use an integer to properly gib cookies.")
+    authorized = False
+    authorized_bakers = ["anja324", "abish", "xlexious"]
+    for person in authorized_bakers:
+        if person == message.author.name:
+            authorized = True
+    if authorized is False:
+        await message.channel.send("You are unauthorized to bake cookies.")
     else:
-        number = is_int(no_punct_list[2])
-        user_id, user_nick = await mentions_information(message)
-        current_score = await score_query(user_id)
-        revised_score = current_score + (number * 10)
-        await change_score(user_id, revised_score)
-        await JsonConfig.channel.botSpam.send(f"{user_nick} has been given {number} cookies. 🍪")
+        no_punct_list, lowered_message, = tidying_caps_punct(message)
+        if len(no_punct_list) != 3:
+            await message.channel.send("Incorrect command structure.  Please consult !help for additional assistance.")
+        elif is_int(no_punct_list[2]) is None:
+            await message.channel.send("Please use an integer to properly gib cookies.")
+        else:
+            number = is_int(no_punct_list[2])
+            user_id, user_nick = await mentions_information(message)
+            current_score = await score_query(user_id)
+            revised_score = current_score + (number * 10)
+            await change_score(user_id, revised_score)
+            await JsonConfig.channel.botSpam.send(f"{user_nick} has been given {number} cookies. 🍪")
 
 
 ##  async def buy_raincoat(message):
