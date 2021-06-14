@@ -21,7 +21,7 @@ def connect_andor_create_resident_database():
 
     #   creates a database for residents if one does not already exist
     cursor.execute("""CREATE TABLE IF NOT EXISTS residents 
-                        (id_number INTEGER NOT NULL PRIMARY KEY, name TEXT, score INTEGER, monthly INTEGER, weekly INTEGER, daily INTEGER)""")
+                        (id_number INTEGER NOT NULL PRIMARY KEY, name TEXT, score INTEGER, monthly INTEGER, weekly INTEGER, daily INTEGER, raincoat INTEGER, raincoat_die_roll INTEGER)""")
     res_db_conn.commit()
 
     Database.cursor = cursor
