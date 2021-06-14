@@ -49,7 +49,13 @@ async def remove_points(message):
     :param message: raw user inputted message
     :return: None
     """
-    if message.author.name != "anja324" or "xlexious" or "abish":
+
+    authorized = False
+    authorized_sprizters = ["anja324", "abish", "xlexious"]
+    for person in authorized_sprizters:
+        if person == message.author.name:
+            authorized = True
+    if authorized is False:
         await message.channel.send("You are unauthorized to wield the spritzer.")
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
