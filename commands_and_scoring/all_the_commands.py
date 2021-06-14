@@ -49,8 +49,8 @@ async def remove_points(message):
     :param message: raw user inputted message
     :return: None
     """
-    if message.author.name != "anja324":
-        return
+    if message.author.name != "anja324" or "xlexious" or "abish":
+        await message.channel.send("You are unauthorized to wield the spritzer.")
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
         if len(no_punct_list) != 3:
@@ -67,6 +67,7 @@ async def remove_points(message):
 
 
 async def need_help(message):
+
     no_punct_list, lowered_message, = tidying_caps_punct(message)
     if len(no_punct_list) > 1:
         await message.channel.send(f"!help takes no parameters.")
@@ -77,3 +78,6 @@ async def need_help(message):
             stripped_line = line.strip()
             help_message += f"{stripped_line}\n"
         await JsonConfig.channel.botSpam.send(help_message)
+
+##  async def buy_raincoat(message):
+
