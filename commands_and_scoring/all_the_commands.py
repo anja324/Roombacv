@@ -164,9 +164,9 @@ async def buy_raincoat(message):
     :return:
     """
     user_id = message.author.id
-    raincoat_status = retrieve_raincoat(user_id)
+    raincoat_status = await retrieve_raincoat(user_id)
     if raincoat_status == 1:
-        message.channel.send("You already own a raincoat.")
+        await message.channel.send("You already own a raincoat.")
     else:
         await raincoat_db_add(user_id)
         user_id = message.author.id
