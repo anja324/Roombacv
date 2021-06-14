@@ -23,10 +23,10 @@ async def raincoat_die_roll(user_id, message):
     roll_it = random.randint(1, die_to_roll)
     if roll_it == 1:
         message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
-        remove_raincoat(user_id)
-        message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
+        await remove_raincoat(user_id)
+        await message.channel.send("Your raincoat has broken.  So sad.  Maybe buy a new one?")
     else:
-        increase_raincoat_break_prob(user_id)
+        await increase_raincoat_break_prob(user_id)
 
 
 

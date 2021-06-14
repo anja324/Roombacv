@@ -4,7 +4,6 @@ from utilities.json_tokens import JsonConfig
 from utilities.normalization import *
 from utilities.tools import *
 from commands_and_scoring.scoring import *
-from discord_items import client
 
 
 async def fetch_score(message):
@@ -69,7 +68,7 @@ async def spritz(message):
             if raincoat_status == 1:
                 user_id, user_nick = await mentions_information(message)
                 await raincoat_die_roll(user_id, message)
-                message.channel.send("Your raincoat has kept you from being spritzed.")
+                await message.channel.send("Your raincoat has kept you from being spritzed.")
                 return
             else:
                 amount_to_deduct = is_int(no_punct_list[2])
@@ -169,10 +168,10 @@ async def buy_raincoat(message):
     if raincoat_status == 1:
         message.channel.send("You already own a raincoat.")
     else:
-        raincoat_db_add(user_id)
+        await raincoat_db_add(user_id)
         user_id = message.author.id
         amount_to_deduct = 500
-        deduct_from_score(user_id, amount_to_deduct)
+        await deduct_from_score(user_id, amount_to_deduct)
         message.channel.send("You have purchased a raincoat for 500 AnjaPoints™️.")
 
 
