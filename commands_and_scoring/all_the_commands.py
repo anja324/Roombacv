@@ -111,7 +111,15 @@ async def cookie(message):
 
 
 async def nom(message):
-    await message.channel.send("https://tenor.com/view/cookies-gif-14785632")
+    user_id = message.author.id
+    current_score = await score_query(user_id)
+    if current_score >= 50:
+        revised_score = current_score - 50
+        await change_score(user_id, revised_score)
+        await message.channel.send("You have spent 50 AnjaPoints™️")
+        await message.channel.send("https://tenor.com/view/cookies-gif-14785632")
+    else:
+        message.channel.send("You cannot afford to nom.")
 
 
 async def uwu(message):
