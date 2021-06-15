@@ -3,6 +3,4 @@
 !topfive:  fetches the users with the top five highest scores (alias: !top5)
 !spritz <@user> <number>:  available only to Anja and Mods, deducts points and makes dampness
 !cookie <@user> <number>: available only to Anja and Mods, gibs cookies worth 10 AnjaPoints(tm)
-!nom:  provides the user with a nomming experience for 50 AnjaPoints(tm)
-!uwu:  makes the server facepalm, groan, and other undesired responses for 500 AnjaPoints(tm)
-!buyraincoat:  gives the user a raincoat for 500 AnjaPoints(tm)  Raincoats will prevent spritzing but have an increased probability of breakage with each use.
+!pointstore: opens the list of currently available purchases

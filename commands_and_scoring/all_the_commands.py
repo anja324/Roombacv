@@ -183,3 +183,14 @@ async def buy_raincoat(message):
         await message.channel.send("You have purchased a raincoat for 500 AnjaPoints™️.")
 
 
+async def open_point_store(message):
+    no_punct_list, lowered_message, = tidying_caps_punct(message)
+    if len(no_punct_list) > 1:
+        await message.channel.send(f"!pointstore takes no parameters.")
+    else:
+        point_store = open("text_files/apstore", "r")
+        help_message = "You may purchase the following items:\n"
+        for line in point_store:
+            stripped_line = line.strip()
+            help_message += f"{stripped_line}\n"
+        await JsonConfig.channel.botSpam.send(help_message)
