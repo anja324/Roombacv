@@ -66,7 +66,6 @@ async def spritz(message):
         await JsonConfig.channel.botSpam.send(
             f"""{user_nick}'s score has been docked {amount_to_deduct} points for unauthorized use of the spritzer. 
                 <:spritzer:{JsonConfig.emoji.spritzer}>""")
-
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
         if len(no_punct_list) != 3:
