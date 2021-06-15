@@ -96,10 +96,11 @@ async def need_help(message):
         await message.channel.send(f"!help takes no parameters.")
     else:
         help_text = open("text_files/helpdictionary", "r")
-        help_message = "Roomba can perform the following tasks:\n"
+        help_message = "```Roomba can perform the following tasks:\n"
         for line in help_text:
             stripped_line = line.strip()
             help_message += f"{stripped_line}\n"
+        help_message = help_message + "```"
         await JsonConfig.channel.botSpam.send(help_message)
 
 
@@ -189,8 +190,9 @@ async def open_point_store(message):
         await message.channel.send(f"!pointstore takes no parameters.")
     else:
         point_store = open("text_files/apstore", "r")
-        help_message = "You may purchase the following items:\n"
+        help_message = "```You may purchase the following items:\n"
         for line in point_store:
             stripped_line = line.strip()
             help_message += f"{stripped_line}\n"
+        help_message = help_message + "```"
         await JsonConfig.channel.botSpam.send(help_message)
