@@ -51,7 +51,7 @@ async def spritz(message):
     """
 
     authorized = False
-    authorized_sprizters = ["anja324", "abish", "xlexious"]
+    authorized_sprizters = ["anja324", "abish"]
     for person in authorized_sprizters:
         if person == message.author.name:
             authorized = True
