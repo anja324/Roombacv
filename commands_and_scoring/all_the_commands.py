@@ -82,7 +82,7 @@ async def spritz(message):
                 amount_to_deduct = is_int(no_punct_list[2])
                 user_id, user_nick = await mentions_information(message)
                 await deduct_from_score(user_id, amount_to_deduct)
-                await JsonConfig.channel.botSpam.send(f"{user_nick}'s score has been docked {amount_to_deduct} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
+                await message.channel.send(f"{user_nick}'s score has been docked {amount_to_deduct} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def need_help(message):
@@ -129,7 +129,7 @@ async def cookie(message):
             user_id, user_nick = await mentions_information(message)
             amount_to_add = 10
             await add_to_score(user_id, amount_to_add)
-            await JsonConfig.channel.botSpam.send(f"{user_nick} has been given {number} cookies. 🍪")
+            await message.channel.send(f"{user_nick} has been given {number} cookies. 🍪")
 
 
 async def nom(message):
