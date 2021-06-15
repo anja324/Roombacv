@@ -56,6 +56,13 @@ async def spritz(message):
         if person == message.author.name:
             authorized = True
     if authorized is False:
+        amount_to_deduct = 5
+        user_id = message.author.id
+        user_nick = message.author.nick
+        await deduct_from_score(user_id, amount_to_deduct)
+        await JsonConfig.channel.botSpam.send(
+            f"""{user_nick}'s score has been docked {amount_to_deduct} points for unauthorized use of the spritzer. 
+                <:spritzer:{JsonConfig.emoji.spritzer}>""")
         await message.channel.send("You are unauthorized to wield the spritzer.")
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
