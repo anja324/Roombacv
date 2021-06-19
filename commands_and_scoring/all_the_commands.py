@@ -244,3 +244,19 @@ async def fetch_leaderboard_bottom_five(message):
             await message.channel.send("There are not enough residents to determine a bottom five board.")
 
 
+async def fetch_leaderboard(message):
+    """
+    provide the leaderboard
+
+    :param message: Raw user inputted message object
+    :return: None
+    """
+    no_punct_list, lowered_message, = tidying_caps_punct(message)
+    if len(no_punct_list) > 1:
+        await message.channel.send("This command does not take any parameters.")
+    else:
+        score_id_list = await retrieve_leaderboard()
+        leaderboard = "The top five residents are:\n"
+        for place, (score, name) in score_id_list:
+            leaderboard += f"{place}.  {name}, {score} AnjaPoints™️\n"
+        await JsonConfig.channel.botSpam.send(leaderboard)
