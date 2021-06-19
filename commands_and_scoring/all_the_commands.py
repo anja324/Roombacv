@@ -217,3 +217,30 @@ async def my_balance(message):
             await JsonConfig.channel.botSpam.send(f"{user_nick}, your current balance is {score} AnjaPoints™️.")
     else:
         await message.channel.send(f"Error: !mybalance does not take any parameters.")
+
+
+async def fetch_leaderboard_bottom_five(message):
+
+    no_punct_list, lowered_message, = tidying_caps_punct(message)
+    if len(no_punct_list) > 1:
+        await message.channel.send("This command does not take any parameters.")
+    else:
+        non_zero_scores = []
+        score_id_list = await retrieve_leaderboard()
+        for user_tuple in score_id_list:
+            if user_tuple[0] <= 0:
+                continue
+            else:
+                non_zero_scores.append(user_tuple)
+        if len(non_zero_scores) > 5:
+            non_zero_scores.reverse()
+            print(non_zero_scores)
+            placed_list = enumerate(non_zero_scores[:5], 1)
+            bottom_five = "The bottom five residents are:\n"
+            for place, (score, name) in placed_list:
+                bottom_five += f"{place}.  {name}, {score} AnjaPoints™️\n"
+            await JsonConfig.channel.botSpam.send(bottom_five)
+        else:
+            await message.channel.send("There are not enough residents to determine a bottom five board.")
+
+
