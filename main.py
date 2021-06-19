@@ -6,10 +6,12 @@ from resident_member_info.new_member import *
 from commands_and_scoring.identify_and_run_commands import create_command_dict, command_exists
 from commands_and_scoring.scoring import *
 
+
 #   connects to the server via id
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
+
 
 #   global variables
 resident_roster = []

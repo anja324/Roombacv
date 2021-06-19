@@ -1,5 +1,6 @@
 !help:  helps
 !score <@user>:  retrieves a user's score
+!myscore: fetches your score
 !topfive:  fetches the users with the top five highest scores (alias: !top5)
 !spritz <@user> <number>:  deducts points and makes dampness
 !cookie <@user> <number>: gibs cookies worth 10 AnjaPoints(tm)

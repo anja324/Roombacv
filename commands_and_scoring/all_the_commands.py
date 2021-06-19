@@ -196,3 +196,21 @@ async def open_point_store(message):
             help_message += f"{stripped_line}\n"
         help_message = help_message + "```"
         await JsonConfig.channel.botSpam.send(help_message)
+
+
+async def my_score(message):
+
+    no_punct_list, lowered_message = tidying_caps_punct(message)
+    if len(no_punct_list) == 1:
+        user_id = message.author.id
+        user_nick = message.author.nick
+        if user_nick is None:
+            user_nick = message.author.name
+        score = await score_query(user_id)
+        if score is None:
+            await message.channel.send(f"Error: User or score not found.")
+            await JsonConfig.channel.audits.send(f"Score query returned None in {message.channel}.")
+        else:
+            await JsonConfig.channel.botSpam.send(f"{user_nick}, your current score is {score}.")
+    else:
+        await message.channel.send(f"Error: !myscore does not take any parameters.")
