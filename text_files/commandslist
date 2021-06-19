@@ -10,3 +10,4 @@ uwu uwu
 pointstore open_point_store
 mybalance my_balance
 bottomfive fetch_leaderboard_bottom_five
+bottom5 fetch_leaderboard_bottom_five

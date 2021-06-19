@@ -2,6 +2,7 @@
 !balance <@user>:  retrieves a user's balance
 !mybalance: fetches your balance
 !topfive:  fetches the users with the top five highest balances (alias: !top5)
+!bottomfive: fetches the users with the bottom five highest balances (alias: !bottom5)
 !spritz <@user> <number>:  deducts points and makes dampness
 !cookie <@user> <number>: gibs cookies worth 10 AnjaPoints(tm)
 !pointstore: opens the list of currently available purchases
