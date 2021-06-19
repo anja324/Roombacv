@@ -13,6 +13,7 @@ async def fetch_score(message):
     :param message: the contents of the raw user message
     :return: None
     """
+
     user_id, user_nick = await mentions_information(message)
 
     score = await score_query(user_id)
@@ -127,7 +128,7 @@ async def cookie(message):
         else:
             number = is_int(no_punct_list[2])
             user_id, user_nick = await mentions_information(message)
-            amount_to_add = 10
+            amount_to_add = number * 10
             await add_to_score(user_id, amount_to_add)
             await message.channel.send(f"{user_nick} has been given {number} cookies. 🍪")
 
