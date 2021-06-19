@@ -13,15 +13,17 @@ async def fetch_score(message):
     :param message: the contents of the raw user message
     :return: None
     """
-
-    user_id, user_nick = await mentions_information(message)
-
-    score = await score_query(user_id)
-    if score is None:
-        await message.channel.send(f"Error: User or score not found.")
-        await JsonConfig.channel.audits.send(f"Score query returned None in {message.channel}.")
+    no_punct_list, lowered_message = tidying_caps_punct(message)
+    if len(no_punct_list) == 1:
+        await my_score(message)
     else:
-        await JsonConfig.channel.botSpam.send(f"{user_nick}'s current score is {score}.")
+        user_id, user_nick = await mentions_information(message)
+        score = await score_query(user_id)
+        if score is None:
+            await message.channel.send(f"Error: User or score not found.")
+            await JsonConfig.channel.audits.send(f"Score query returned None in {message.channel}.")
+        else:
+            await JsonConfig.channel.botSpam.send(f"{user_nick}'s current score is {score}.")
 
 
 async def fetch_leaderboard_top_five(message):
