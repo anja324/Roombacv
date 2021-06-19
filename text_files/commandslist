@@ -1,4 +1,4 @@
-score fetch_score
+balance fetch_balance
 topfive fetch_leaderboard_top_five
 top5 fetch_leaderboard_top_five
 spritz spritz
@@ -8,4 +8,4 @@ cookie cookie
 nom nom
 uwu uwu
 pointstore open_point_store
-myscore my_score
+mybalance my_balance

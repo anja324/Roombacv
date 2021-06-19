@@ -6,7 +6,7 @@ from utilities.tools import *
 from commands_and_scoring.scoring import *
 
 
-async def fetch_score(message):
+async def fetch_balance(message):
     """
     retrieves and prints the score of a user
 
@@ -15,15 +15,15 @@ async def fetch_score(message):
     """
     no_punct_list, lowered_message = tidying_caps_punct(message)
     if len(no_punct_list) == 1:
-        await my_score(message)
+        await my_balance(message)
     else:
         user_id, user_nick = await mentions_information(message)
         score = await score_query(user_id)
         if score is None:
-            await message.channel.send(f"Error: User or score not found.")
-            await JsonConfig.channel.audits.send(f"Score query returned None in {message.channel}.")
+            await message.channel.send(f"Error: User or balance not found.")
+            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
         else:
-            await JsonConfig.channel.botSpam.send(f"{user_nick}'s current score is {score}.")
+            await JsonConfig.channel.botSpam.send(f"{user_nick}'s current balance is {score} AnjaPoints™️.")
 
 
 async def fetch_leaderboard_top_five(message):
@@ -41,7 +41,7 @@ async def fetch_leaderboard_top_five(message):
         placed_list = enumerate(score_id_list[:5], 1)
         top_five = "The top five residents are:\n"
         for place, (score, name) in placed_list:
-            top_five += f"{place}.  {name}, {score} points\n"
+            top_five += f"{place}.  {name}, {score} AnjaPoints™️\n"
         await JsonConfig.channel.botSpam.send(top_five)
 
 
@@ -67,7 +67,7 @@ async def spritz(message):
         await message.channel.send("You are unauthorized to wield the spritzer.")
         await deduct_from_score(user_id, amount_to_deduct)
         await JsonConfig.channel.botSpam.send(
-            f"{user_nick}'s score has been docked {amount_to_deduct} points for unauthorized use of the spritzer. <:spritzer:{JsonConfig.emoji.spritzer}>")
+            f"{user_nick}'s balance has been docked {amount_to_deduct} AnjaPoints™️ for unauthorized use of the spritzer. <:spritzer:{JsonConfig.emoji.spritzer}>")
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
         if len(no_punct_list) != 3:
@@ -85,7 +85,7 @@ async def spritz(message):
                 amount_to_deduct = is_int(no_punct_list[2])
                 user_id, user_nick = await mentions_information(message)
                 await deduct_from_score(user_id, amount_to_deduct)
-                await message.channel.send(f"{user_nick}'s score has been docked {amount_to_deduct} points. <:spritzer:{JsonConfig.emoji.spritzer}>")
+                await message.channel.send(f"{user_nick}'s balance has been docked {amount_to_deduct} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def need_help(message):
@@ -201,7 +201,7 @@ async def open_point_store(message):
         await JsonConfig.channel.botSpam.send(help_message)
 
 
-async def my_score(message):
+async def my_balance(message):
 
     no_punct_list, lowered_message = tidying_caps_punct(message)
     if len(no_punct_list) == 1:
@@ -211,9 +211,9 @@ async def my_score(message):
             user_nick = message.author.name
         score = await score_query(user_id)
         if score is None:
-            await message.channel.send(f"Error: User or score not found.")
-            await JsonConfig.channel.audits.send(f"Score query returned None in {message.channel}.")
+            await message.channel.send(f"Error: User or balance not found.")
+            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
         else:
-            await JsonConfig.channel.botSpam.send(f"{user_nick}, your current score is {score}.")
+            await JsonConfig.channel.botSpam.send(f"{user_nick}, your current balance is {score} AnjaPoints™️.")
     else:
-        await message.channel.send(f"Error: !myscore does not take any parameters.")
+        await message.channel.send(f"Error: !mybalance does not take any parameters.")
