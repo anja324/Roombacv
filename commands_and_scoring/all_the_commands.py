@@ -256,7 +256,8 @@ async def fetch_leaderboard(message):
         await message.channel.send("This command does not take any parameters.")
     else:
         score_id_list = await retrieve_leaderboard()
-        leaderboard = "The top five residents are:\n"
-        for place, (score, name) in score_id_list:
+        leaderboard = "The current resident balances are:\n"
+        placed_list = enumerate(score_id_list, 1)
+        for place, (score, name) in placed_list:
             leaderboard += f"{place}.  {name}, {score} AnjaPoints™️\n"
         await JsonConfig.channel.botSpam.send(leaderboard)
