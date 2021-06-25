@@ -1,9 +1,8 @@
+from modules.raincoat import raincoat_die_roll, raincoat_db_add, retrieve_raincoat
 from utilities.message_information_grabs import *
-from database.database_functions import *
 from utilities.json_tokens import JsonConfig
-from utilities.normalization import *
 from utilities.tools import *
-from commands_and_scoring.scoring import *
+from modules.scoring import *
 
 
 async def fetch_balance(message):

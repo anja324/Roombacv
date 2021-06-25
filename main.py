@@ -1,17 +1,18 @@
 import discord
+
+from resident_member_info.Resident import *
 from utilities.json_tokens import *
 from modules.explicit_words import *
 from modules.easter_eggs import *
-from resident_member_info.new_member import *
 from commands_and_scoring.identify_and_run_commands import create_command_dict, command_exists
-from commands_and_scoring.scoring import *
+from modules.scoring import *
 
 
 #   connects to the server via id
-intents = discord.Intents.default()
-intents.members = True
-client = discord.Client(intents=intents)
-
+# intents = discord.Intents.default()
+# intents.members = True
+client = discord.Client()
+#   intents=intents
 
 #   global variables
 resident_roster = []
@@ -54,7 +55,7 @@ async def on_message(message):
     await explicit_words(explicit_array, message, no_punct_list)
     await command_exists(message, command_dict, lowered_message)
     await easter_eggs(message, easter_egg_dict, lowered_message)
-    await per_text_message_score(message)
+    await tabulate_message_score(message)
 
 
 @client.event
