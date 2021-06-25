@@ -1,5 +1,5 @@
 # noinspection PyUnresolvedReferences
-from commands_and_scoring.all_the_commands import *
+from commands.all_the_commands import *
 
 
 # noinspection SpellCheckingInspection

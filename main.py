@@ -4,7 +4,7 @@ from resident_member_info.Resident import *
 from utilities.json_tokens import *
 from modules.explicit_words import *
 from modules.easter_eggs import *
-from commands_and_scoring.identify_and_run_commands import create_command_dict, command_exists
+from utilities.command_identifier import create_command_dict, command_exists
 from modules.scoring import *
 
 

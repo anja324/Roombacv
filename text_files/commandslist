@@ -1,6 +1,6 @@
 balance fetch_balance
-topfive fetch_leaderboard_top_five
-top5 fetch_leaderboard_top_five
+topfive leaderboard_top_five
+top5 leaderboard_top_five
 spritz spritz
 help need_help
 buyraincoat buy_raincoat
@@ -9,6 +9,6 @@ nom nom
 uwu uwu
 pointstore open_point_store
 mybalance my_balance
-bottomfive fetch_leaderboard_bottom_five
-bottom5 fetch_leaderboard_bottom_five
-leaderboard fetch_leaderboard
+bottomfive leaderboard_bottom_five
+bottom5 leaderboard_bottom_five
+leaderboard leaderboard
