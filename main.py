@@ -9,10 +9,10 @@ from modules.scoring import *
 
 
 #   connects to the server via id
-# intents = discord.Intents.default()
-# intents.members = True
-client = discord.Client()
-#   intents=intents
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
+
 
 #   global variables
 resident_roster = []
