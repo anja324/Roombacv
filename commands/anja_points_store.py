@@ -67,4 +67,4 @@ async def nom(message):
         await message.channel.send("You have spent 50 AnjaPoints™️")
         await message.channel.send("https://tenor.com/view/cookies-gif-14785632")
     else:
-        message.channel.send("You cannot afford to nom.")
+        await message.channel.send("You cannot afford to nom.")
