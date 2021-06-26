@@ -46,11 +46,11 @@ async def leaderboard(message):
                 continue
             else:
                 non_zero_scores.append(user_tuple)
-        leaderboard = "The current resident balances are:\n"
+        leaderboard_writeup = "The current resident balances are:\n"
         placed_list = enumerate(non_zero_scores, 1)
         for place, (score, name) in placed_list:
-            leaderboard += f"{place}.  {name}, {score} AnjaPoints™️\n"
-        await JsonConfig.channel.botSpam.send(leaderboard)
+            leaderboard_writeup += f"{place}.  {name}, {score} AnjaPoints™️\n"
+        await JsonConfig.channel.botSpam.send(leaderboard_writeup)
 
 
 async def fetch_leaderboard_top_five(message):

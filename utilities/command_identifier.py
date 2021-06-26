@@ -1,5 +1,7 @@
 # noinspection PyUnresolvedReferences
 from commands.all_the_commands import *
+from commands.leaderboard import *
+from commands.anja_points_store import *
 
 
 # noinspection SpellCheckingInspection
