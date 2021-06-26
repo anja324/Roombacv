@@ -53,7 +53,7 @@ async def leaderboard(message):
         await JsonConfig.channel.botSpam.send(leaderboard_writeup)
 
 
-async def fetch_leaderboard_top_five(message):
+async def leaderboard_top_five(message):
     """
     provide the top five users on the leaderboard
 
