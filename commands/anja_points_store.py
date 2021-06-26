@@ -50,7 +50,7 @@ async def uwu(message):
         await message.channel.send("You have spent 500 AnjaPoints™️")
         await message.channel.send("https://tenor.com/view/uwu-cat-heart-gif-19132889")
     else:
-        message.channel.send("You cannot afford to uwu.")
+        await message.channel.send("You cannot afford to uwu.")
 
 
 async def nom(message):
