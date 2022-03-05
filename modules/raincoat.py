@@ -11,7 +11,7 @@ async def raincoat_db_add(user_id):
 
     change_it = "UPDATE residents SET raincoat = 1 WHERE id_number = ?"
     Database.cursor.execute(change_it, (user_id,))
-    die_roll_set = "UPDATE residents SET raincoat_die_roll = 10"
+    die_roll_set = "UPDATE residents SET raincoat_die_roll = 7"
     Database.cursor.execute(die_roll_set)
     Database.res_db_conn.commit()
 
