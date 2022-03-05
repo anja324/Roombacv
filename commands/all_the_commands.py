@@ -52,7 +52,7 @@ async def spritz(message):
     """
 
     authorized = False
-    authorized_sprizters = ["anja324", "abish", "xlexious"]
+    authorized_sprizters = ["anja324", "abish", "xlexious", "MrNeutron"]
     for person in authorized_sprizters:
         if person == message.author.name:
             authorized = True
@@ -94,7 +94,7 @@ async def cookie(message):
     """
 
     authorized = False
-    authorized_bakers = ["anja324", "abish", "xlexious"]
+    authorized_bakers = ["anja324", "abish", "xlexious", "MrNeutron"]
     for person in authorized_bakers:
         if person == message.author.name:
             authorized = True
