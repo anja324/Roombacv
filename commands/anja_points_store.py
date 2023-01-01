@@ -1,21 +1,5 @@
 from modules.raincoat import retrieve_raincoat, raincoat_db_add
 from modules.scoring import deduct_from_score, score_query
-from utilities.json_tokens import JsonConfig
-from utilities.normalization import tidying_caps_punct
-
-
-async def open_point_store(message):
-    no_punct_list, lowered_message, = tidying_caps_punct(message)
-    if len(no_punct_list) > 1:
-        await message.channel.send(f"!pointstore takes no parameters.")
-    else:
-        point_store = open("text_files/apstore", "r")
-        help_message = "```You may purchase the following items:\n"
-        for line in point_store:
-            stripped_line = line.strip()
-            help_message += f"{stripped_line}\n"
-        help_message = help_message + "```"
-        await JsonConfig.channel.botSpam.send(help_message)
 
 
 async def buy_raincoat(message):
@@ -24,10 +8,14 @@ async def buy_raincoat(message):
     :param message: Raw user inputted message.
     :return:
     """
+
     user_id = message.author.id
     raincoat_status = await retrieve_raincoat(user_id)
+    current_score = await score_query(user_id)
     if raincoat_status == 1:
         await message.channel.send("You already own a raincoat.")
+    elif current_score < 500:
+        await message.channel.send("You can't afford this.")
     else:
         await raincoat_db_add(user_id)
         user_id = message.author.id
@@ -42,6 +30,7 @@ async def uwu(message):
     :param message: The raw user inputted message
     :return:
     """
+
     user_id = message.author.id
     current_score = await score_query(user_id)
     if current_score >= 500:
@@ -59,6 +48,7 @@ async def nom(message):
     :param message: The raw user inputted message
     :return:
     """
+
     user_id = message.author.id
     current_score = await score_query(user_id)
     if current_score >= 50:

@@ -1,8 +1,11 @@
 from modules.raincoat import raincoat_die_roll, retrieve_raincoat
+from modules.scoring import score_query
 from utilities.message_information_grabs import *
 from utilities.json_tokens import JsonConfig
+from utilities.normalization import tidying_caps_punct
 from utilities.tools import *
 from modules.scoring import *
+from utilities.user_identification import user_is_mod
 
 
 async def fetch_balance(message):
@@ -12,6 +15,7 @@ async def fetch_balance(message):
     :param message: the contents of the raw user message
     :return: None
     """
+
     no_punct_list, lowered_message = tidying_caps_punct(message)
     if len(no_punct_list) == 1:
         await my_balance(message)
@@ -26,6 +30,12 @@ async def fetch_balance(message):
 
 
 async def my_balance(message):
+    """
+    retrieves and prints the score of the user who calls it
+
+    :param message: the contents of the raw user message
+    :return: None
+    """
 
     no_punct_list, lowered_message = tidying_caps_punct(message)
     if len(no_punct_list) == 1:
@@ -51,12 +61,8 @@ async def spritz(message):
     :return: None
     """
 
-    authorized = False
-    authorized_sprizters = ["anja324", "abish", "xlexious", "MrNeutron"]
-    for person in authorized_sprizters:
-        if person == message.author.name:
-            authorized = True
-    if authorized is False:
+    mod_status = await user_is_mod(message)
+    if mod_status is False:
         amount_to_deduct = 5
         user_id = message.author.id
         user_nick = message.author.nick
@@ -90,15 +96,11 @@ async def cookie(message):
     """
     Gives the mentioned user a "cookie" worth 10 points
     :param message: The raw user inputted message
-    :return:
+    :return:None
     """
 
-    authorized = False
-    authorized_bakers = ["anja324", "abish", "xlexious", "MrNeutron"]
-    for person in authorized_bakers:
-        if person == message.author.name:
-            authorized = True
-    if authorized is False:
+    mod_status = await user_is_mod(message)
+    if mod_status is False:
         await message.channel.send("You are unauthorized to bake cookies.")
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
@@ -118,8 +120,9 @@ async def need_help(message):
     """
     Returns the user with a list of Roomba's current capabilities
     :param message: The raw user inputted message
-    :return:
+    :return: None
     """
+
     no_punct_list, lowered_message, = tidying_caps_punct(message)
     if len(no_punct_list) > 1:
         await message.channel.send(f"!help takes no parameters.")
@@ -131,3 +134,51 @@ async def need_help(message):
             help_message += f"{stripped_line}\n"
         help_message = help_message + "```"
         await JsonConfig.channel.botSpam.send(help_message)
+
+
+async def open_point_store(message):
+    """
+    Prints a list of purchasable items and their costs
+
+    :param message: the contents of the raw user message
+    :return: None
+    """
+
+    no_punct_list, lowered_message, = tidying_caps_punct(message)
+    if len(no_punct_list) > 1:
+        await message.channel.send(f"!pointstore takes no parameters.")
+    else:
+        point_store = open("text_files/apstore", "r")
+        help_message = "```You may purchase the following items:\n"
+        for line in point_store:
+            stripped_line = line.strip()
+            help_message += f"{stripped_line}\n"
+        help_message = help_message + "```"
+        await JsonConfig.channel.botSpam.send(help_message)
+
+
+async def bot_control(message):
+    """
+    Prints the text specified by a user in a given channel
+
+    :param message: the contents of the raw user message
+    :return: None
+    """
+    can_make_roomby_speak = await user_is_mod(message)
+    if can_make_roomby_speak is True:
+        no_punct_list, lowered_message, = tidying_caps_punct(message)
+        no_punct_list.pop(0)
+        desired_channel = no_punct_list[0]
+        command_list = lowered_message.split(" ", 2)
+        command_list.pop(0)
+        command_list.pop(0)
+        desired_text = ""
+        for text in command_list:
+            desired_text = text
+        await JsonConfig.channel.botSpam.send(desired_text)
+    else:
+        await message.delete()
+        return
+
+
+

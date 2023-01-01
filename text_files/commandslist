@@ -12,3 +12,6 @@ mybalance my_balance
 bottomfive leaderboard_bottom_five
 bottom5 leaderboard_bottom_five
 leaderboard leaderboard
+top10 leaderboard_top_ten
+topten leaderboard_top_ten
+speak bot_control

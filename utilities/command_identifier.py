@@ -1,4 +1,3 @@
-# noinspection PyUnresolvedReferences
 from commands.all_the_commands import *
 from commands.leaderboard import *
 from commands.anja_points_store import *
@@ -11,6 +10,7 @@ def create_command_dict():
 
     :return: command_dict
     """
+
     command_file = open("text_files/commandslist", "r")
     command_dict = {}
     for line in command_file:
@@ -29,6 +29,7 @@ async def command_exists(message, command_dict, lowered_message):
     :param lowered_message: lowered version of raw user inputted message
     :return: maybe_command, command_parameter_id
     """
+
     if lowered_message.startswith("!"):
         no_exclaim = lowered_message.replace("!", "", 1)
         split_message = no_exclaim.split(" ")
@@ -39,5 +40,11 @@ async def command_exists(message, command_dict, lowered_message):
             else:
                 command_name = maybe_command
                 await globals().get(command_name)(message)
+        elif split_message[0] == "speak":
+            maybe_command = command_dict.get(split_message[0])
+            command_name = maybe_command
+            await globals().get(command_name)(message)
         else:
             await message.channel.send("Invalid command structure.  Reference !help for more information.")
+
+

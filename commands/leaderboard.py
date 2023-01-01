@@ -4,6 +4,12 @@ from utilities.normalization import tidying_caps_punct
 
 
 async def leaderboard_bottom_five(message):
+    """
+    retrieves and prints the bottom five scores in the community
+
+    :param message: the contents of the raw user message
+    :return: None
+    """
 
     no_punct_list, lowered_message, = tidying_caps_punct(message)
     if len(no_punct_list) > 1:
@@ -30,7 +36,7 @@ async def leaderboard_bottom_five(message):
 
 async def leaderboard(message):
     """
-    provide the leaderboard
+    provide the leaderboard of all community members who have spoken and their scores
 
     :param message: Raw user inputted message object
     :return: None
@@ -55,7 +61,7 @@ async def leaderboard(message):
 
 async def leaderboard_top_five(message):
     """
-    provide the top five users on the leaderboard
+    provides the top five users on the leaderboard
 
     :param message: Raw user inputted message object
     :return: None
@@ -70,3 +76,22 @@ async def leaderboard_top_five(message):
         for place, (score, name) in placed_list:
             top_five += f"{place}.  {name}, {score} AnjaPoints™️\n"
         await JsonConfig.channel.botSpam.send(top_five)
+
+
+async def leaderboard_top_ten(message):
+    """
+    provides the top ten users on the leaderboard
+
+    :param message: Raw user inputted message object
+    :return: None
+    """
+    no_punct_list, lowered_message, = tidying_caps_punct(message)
+    if len(no_punct_list) > 1:
+        await message.channel.send("This command does not take any parameters.")
+    else:
+        score_id_list = await retrieve_leaderboard()
+        placed_list = enumerate(score_id_list[:10], 1)
+        top_ten = "The top ten residents are:\n"
+        for place, (score, name) in placed_list:
+            top_ten += f"{place}.  {name}, {score} AnjaPoints™️\n"
+        await JsonConfig.channel.botSpam.send(top_ten)

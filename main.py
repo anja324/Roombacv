@@ -1,5 +1,6 @@
 import discord
 
+from database.database_functions import connect_andor_create_resident_database
 from resident_member_info.Resident import *
 from utilities.json_tokens import *
 from modules.explicit_words import *
@@ -9,10 +10,10 @@ from modules.scoring import *
 
 
 #   connects to the server via id
-intents = discord.Intents.default()
-intents.members = True
-client = discord.Client(intents=intents)
-
+#   intents = discord.Intents.default()
+#   intents.members = True
+client = discord.Client()
+#   intents=intents
 
 #   global variables
 resident_roster = []

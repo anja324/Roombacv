@@ -21,9 +21,10 @@ async def easter_eggs(message, easter_egg_dict, lowered_message):
 
     :param message: raw user sent message
     :param easter_egg_dict: easter egg triggers and their responses
-    :param lowered_message: lowercase version of user message
+    :param lowered_message: lowercase version of user message content
     :return: None
     """
+
     #   dictionary format: { trigger : response }
     maybe_easter_egg = easter_egg_dict.get(lowered_message)
     if maybe_easter_egg is not None:

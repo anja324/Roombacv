@@ -30,6 +30,7 @@ def open_assign_json():
 
     :return: JsonTokens.json_config
     """
+
     with open("tokens/tokens.json") as json_file:
         json_config = json.load(json_file)
     return json_config

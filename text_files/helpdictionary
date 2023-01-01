@@ -2,6 +2,7 @@
 !balance <@user>:  retrieves a user's balance
 !mybalance: fetches your balance
 !topfive:  fetches the users with the top five highest balances (alias: !top5)
+!topten: fetches the users with the top ten highest balances (alias: !top10)
 !bottomfive: fetches the users with the bottom five highest balances (alias: !bottom5)
 !leaderboard:  fetches all users and their balances
 !spritz <@user> <number>:  deducts points and makes dampness

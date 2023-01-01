@@ -6,6 +6,7 @@ async def mentions_information(message):
     :param message: raw user sent message
     :return: user_id, user_nick
     """
+
     mentions_list = message.mentions
     if len(mentions_list) == 0:
         await message.channel.send("Invalid parameter, please use a mention to select a user.")

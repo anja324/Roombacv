@@ -7,6 +7,7 @@ def create_explicit_array():
 
     :return: explicit_array
     """
+
     # noinspection SpellCheckingInspection
     explicit_arr = open("text_files/explicitarray", "r")
     explicit_array = []
