@@ -1,3 +1,5 @@
+import os
+
 import discord
 
 from database.database_functions import connect_andor_create_resident_database
@@ -8,12 +10,13 @@ from modules.easter_eggs import *
 from utilities.command_identifier import create_command_dict, command_exists
 from modules.scoring import *
 
-
 #   connects to the server via id
-#   intents = discord.Intents.default()
-#   intents.members = True
-client = discord.Client()
-#   intents=intents
+if os.environ.get("PRODUCTION"):
+    intents = discord.Intents.default()
+    intents.members = True
+    client = discord.Client(intents=intents)
+else:
+    client = discord.Client()
 
 #   global variables
 resident_roster = []
