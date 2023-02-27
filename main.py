@@ -9,6 +9,7 @@ from modules.explicit_words import *
 from modules.easter_eggs import *
 from utilities.command_identifier import create_command_dict, command_exists
 from modules.scoring import *
+from modules.logging import *
 
 #   connects to the server via id
 if os.environ.get("PRODUCTION"):
@@ -60,6 +61,18 @@ async def on_message(message):
     await command_exists(message, command_dict, lowered_message)
     await easter_eggs(message, easter_egg_dict, lowered_message)
     await tabulate_message_score(message)
+
+
+@client.event
+async def on_message_edit(after, message):
+
+    await log_edited_message(after, message)
+
+
+@client.event
+async def on_message_delete(message):
+
+    await log_deleted_message(message)
 
 
 @client.event

@@ -13,6 +13,7 @@ class JsonConfig:
             self.rules = client.get_channel(json_config["rules"])
             self.lounge = client.get_channel(json_config["lounge"])
             self.botSpam = client.get_channel(json_config["botSpam"])
+            self.topLevelAudits = client.get_channel(json_config["topLevelAudits"])
 
     class Token:
         def __init__(self, json_config):
