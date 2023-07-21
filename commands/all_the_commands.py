@@ -78,6 +78,10 @@ async def spritz(message):
             await message.channel.send("Incorrect command structure.  Please consult !help for additional assistance.")
         elif is_int(no_punct_list[2]) is None:
             await message.channel.send("Please use an integer to properly spritz.")
+        elif int(no_punct_list[2]) > 5:
+            await message.channel.send("Your spritz was too high.  Perhaps if the offense was this serious it should be 'discussed'.")
+        elif int(no_punct_list[2]) < 1:
+            await message.channel.send("If you want to spritz, you should probably pick a positive integer between 0 and 6")
         else:
             user_id, user_nick = await mentions_information(message)
             raincoat_status = await retrieve_raincoat(user_id)
@@ -86,7 +90,8 @@ async def spritz(message):
                 await raincoat_die_roll(user_id, message)
                 return
             else:
-                amount_to_deduct = is_int(no_punct_list[2])
+                user_score = await score_query(user_id)
+                amount_to_deduct = round(((int(no_punct_list[2])*user_score)/100), 0)
                 user_id, user_nick = await mentions_information(message)
                 await deduct_from_score(user_id, amount_to_deduct)
                 await message.channel.send(f"{user_nick}'s balance has been docked {amount_to_deduct} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")
