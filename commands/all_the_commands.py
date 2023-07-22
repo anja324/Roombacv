@@ -10,7 +10,6 @@ from modules.scoring import *
 from utilities.user_identification import user_is_mod
 
 
-
 async def fetch_balance(message):
     """
     retrieves and prints the score of a user
@@ -174,16 +173,23 @@ async def bot_control(message):
     """
     can_make_roomby_speak = await user_is_mod(message)
     if can_make_roomby_speak is True:
-        no_punct_list, lowered_message, = tidying_caps_punct(message)
-        no_punct_list.pop(0)
-        desired_channel = no_punct_list[0]
-        command_list = lowered_message.split(" ", 2)
-        command_list.pop(0)
-        command_list.pop(0)
-        desired_text = ""
-        for text in command_list:
-            desired_text = text
-        await JsonConfig.channel.botSpam.send(desired_text)
+        channel_info_list = message.channel_mentions
+        if len(channel_info_list) > 1 or len(channel_info_list) < 1:
+            await message.channel.send("You done effed up.  Please make sure you mention exactly one channel")
+        else:
+            desired_channel = channel_info_list[0].name
+            server_channel_list = await message.guild.fetch_channels()
+            for room in server_channel_list:
+                if desired_channel == room.name:
+                    command_split = message.content.split(" ", 2)
+                    if len(command_split) < 2:
+                        await message.channel.send(
+                            "You done effed up.  Please check your command structure and try again. (!speak <channel mention> message)")
+                    else:
+                        desired_text = command_split[2]
+                        await room.send(desired_text)
+                else:
+                    pass
     else:
         await message.delete()
         return
