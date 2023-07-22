@@ -1,3 +1,5 @@
+import random
+
 from modules.raincoat import raincoat_die_roll, retrieve_raincoat
 from modules.scoring import score_query
 from utilities.message_information_grabs import *
@@ -6,6 +8,7 @@ from utilities.normalization import tidying_caps_punct
 from utilities.tools import *
 from modules.scoring import *
 from utilities.user_identification import user_is_mod
+
 
 
 async def fetch_balance(message):
@@ -186,4 +189,15 @@ async def bot_control(message):
         return
 
 
+async def roll_die(message):
+
+    no_punct_list, lowered_message = tidying_caps_punct(message)
+    if len(no_punct_list) > 2 or len(no_punct_list) < 2:
+        await message.channel.send("Invalid command structure, maybe take a look at help.")
+    valid_die = is_int(no_punct_list[1])
+    if valid_die is None:
+        await message.channel.send("Try using a number that doesn't break the universe, genius.")
+    else:
+        roll_it = random.randint(1, valid_die)
+        await message.channel.send(roll_it)
 

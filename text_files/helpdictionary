@@ -8,3 +8,4 @@
 !spritz <@user> <number>:  deducts points and makes dampness
 !cookie <@user> <number>: gibs cookies worth 10 AnjaPoints(tm)
 !pointstore: opens the list of currently available purchases
+!rolldie <number>: rolls a die with the specified number of sides
