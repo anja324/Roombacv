@@ -86,17 +86,16 @@ async def spritz(message):
             await message.channel.send("If you want to spritz, you should probably pick a positive integer between 0 and 6")
         else:
             user_id, user_nick = await mentions_information(message)
+            user_score = await score_query(user_id)
+            spritz_amount = int(round(((int(no_punct_list[2])*user_score)/100), 0))
             raincoat_status = await retrieve_raincoat(user_id)
             if raincoat_status == 1:
-                await message.channel.send("Your raincoat has kept you from being spritzed.")
+                await message.channel.send(f"Your raincoat has kept you from being spritzed {spritz_amount} AnjaPoints™️.")
                 await raincoat_die_roll(user_id, message)
                 return
             else:
-                user_score = await score_query(user_id)
-                amount_to_deduct = int(round(((int(no_punct_list[2])*user_score)/100), 0))
-                user_id, user_nick = await mentions_information(message)
-                await deduct_from_score(user_id, amount_to_deduct)
-                await message.channel.send(f"{user_nick}'s balance has been docked {amount_to_deduct} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")
+                await deduct_from_score(user_id, spritz_amount)
+                await message.channel.send(f"{user_nick}'s balance has been docked {spritz_amount} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def cookie(message):
