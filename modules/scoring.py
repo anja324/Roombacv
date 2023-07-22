@@ -56,7 +56,8 @@ async def score_query(user_id):
                         WHERE id_number == (?)"""
 
     Database.cursor.execute(retrieve_score, (user_id,))
-    score, = Database.cursor.fetchone()
+    raw_score, = Database.cursor.fetchone()
+    score = int(round(raw_score, 0))
     return score
 
 

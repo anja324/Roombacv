@@ -91,7 +91,7 @@ async def spritz(message):
                 return
             else:
                 user_score = await score_query(user_id)
-                amount_to_deduct = round(((int(no_punct_list[2])*user_score)/100), 0)
+                amount_to_deduct = int(round(((int(no_punct_list[2])*user_score)/100), 0))
                 user_id, user_nick = await mentions_information(message)
                 await deduct_from_score(user_id, amount_to_deduct)
                 await message.channel.send(f"{user_nick}'s balance has been docked {amount_to_deduct} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")

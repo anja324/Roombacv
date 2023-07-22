@@ -12,7 +12,7 @@ async def buy_raincoat(message):
     user_id = message.author.id
     raincoat_status = await retrieve_raincoat(user_id)
     current_score = await score_query(user_id)
-    cost_of_raincoat = round((current_score * 3 / 100), 0)
+    cost_of_raincoat = int(round((current_score * 3 / 100), 0))
     print(cost_of_raincoat)
     if raincoat_status == 1:
         await message.channel.send("You already own a raincoat.")
@@ -38,7 +38,7 @@ async def uwu(message):
         amount_to_deduct = 500
         await deduct_from_score(user_id, amount_to_deduct)
         await message.channel.send("You have spent 500 AnjaPoints™️")
-        await message.channel.send("https://tenor.com/view/uwu-cat-heart-gif-19132889")
+        await message.channel.send("https://tenor.com/bpHsW.gif")
     else:
         await message.channel.send("You cannot afford to uwu.")
 
