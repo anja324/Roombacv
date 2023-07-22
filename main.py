@@ -10,6 +10,7 @@ from modules.easter_eggs import *
 from utilities.command_identifier import create_command_dict, command_exists
 from modules.scoring import *
 from modules.logging import *
+from modules.vin_ok_bro_contingency import *
 
 #   connects to the server via id
 if os.environ.get("PRODUCTION"):
@@ -61,6 +62,7 @@ async def on_message(message):
     await command_exists(message, command_dict, lowered_message)
     await easter_eggs(message, easter_egg_dict, lowered_message)
     await tabulate_message_score(message)
+    await someone_cheated(message)
 
 
 @client.event
