@@ -28,7 +28,7 @@ async def leaderboard_bottom_five(message):
             placed_list = enumerate(non_zero_scores[:5], 1)
             bottom_five = "The bottom five residents are:\n"
             for place, (score, name) in placed_list:
-                bottom_five += f"{place}.  {name}, {score} AnjaPoints™️\n"
+                bottom_five += f"{place}.  {name}, {int(score)} AnjaPoints™️\n"
             await JsonConfig.channel.botSpam.send(bottom_five)
         else:
             await message.channel.send("There are not enough residents to determine a bottom five board.")
@@ -55,7 +55,7 @@ async def leaderboard(message):
         leaderboard_writeup = "The current resident balances are:\n"
         placed_list = enumerate(non_zero_scores, 1)
         for place, (score, name) in placed_list:
-            leaderboard_writeup += f"{place}.  {name}, {score} AnjaPoints™️\n"
+            leaderboard_writeup += f"{place}.  {name}, {int(score)} AnjaPoints™️\n"
         await JsonConfig.channel.botSpam.send(leaderboard_writeup)
 
 
@@ -74,7 +74,7 @@ async def leaderboard_top_five(message):
         placed_list = enumerate(score_id_list[:5], 1)
         top_five = "The top five residents are:\n"
         for place, (score, name) in placed_list:
-            top_five += f"{place}.  {name}, {score} AnjaPoints™️\n"
+            top_five += f"{place}.  {name}, {int(score)} AnjaPoints™️\n"
         await JsonConfig.channel.botSpam.send(top_five)
 
 
@@ -93,5 +93,5 @@ async def leaderboard_top_ten(message):
         placed_list = enumerate(score_id_list[:10], 1)
         top_ten = "The top ten residents are:\n"
         for place, (score, name) in placed_list:
-            top_ten += f"{place}.  {name}, {score} AnjaPoints™️\n"
+            top_ten += f"{place}.  {name}, {int(score)} AnjaPoints™️\n"
         await JsonConfig.channel.botSpam.send(top_ten)
