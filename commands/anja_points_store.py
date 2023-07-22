@@ -12,16 +12,17 @@ async def buy_raincoat(message):
     user_id = message.author.id
     raincoat_status = await retrieve_raincoat(user_id)
     current_score = await score_query(user_id)
+    cost_of_raincoat = round((current_score * 3 / 100), 0)
+    print(cost_of_raincoat)
     if raincoat_status == 1:
         await message.channel.send("You already own a raincoat.")
-    elif current_score < 500:
+    elif current_score < cost_of_raincoat:
         await message.channel.send("You can't afford this.")
     else:
         await raincoat_db_add(user_id)
         user_id = message.author.id
-        amount_to_deduct = 500
-        await deduct_from_score(user_id, amount_to_deduct)
-        await message.channel.send("You have purchased a raincoat for 500 AnjaPoints™️.")
+        await deduct_from_score(user_id, cost_of_raincoat)
+        await message.channel.send(f"You have purchased a raincoat for {cost_of_raincoat} AnjaPoints™️.")
 
 
 async def uwu(message):
