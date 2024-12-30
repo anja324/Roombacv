@@ -1,7 +1,7 @@
 from database.database_functions import Database
 from utilities.normalization import *
 from database.database_functions import *
-from utilities.user_identification import user_is_mod
+from utilities.user_identification import *
 
 
 async def tabulate_message_score(message):
@@ -18,7 +18,6 @@ async def tabulate_message_score(message):
 
     #   rejects any bot commands as not relevant to points score tabulation
     if message.content.startswith("!"):
-        await user_is_mod(message)
         return
 
     #   creates a list that identifies each word in the message
@@ -28,6 +27,7 @@ async def tabulate_message_score(message):
     if len(message.embeds) == 1 or len(message.attachments) == 1:
         embed_attach_status = True
 
+    #   assigns a score to the user based on the number of words in their message (or whether their message is an embed)
     if embed_attach_status is True:
         score_addition = 5
     elif len (no_punct_list) >= 80:
@@ -38,6 +38,16 @@ async def tabulate_message_score(message):
         score_addition = len(no_punct_list) * 1
     elif len(no_punct_list) <= 9:
         score_addition = len(no_punct_list) * .5
+
+    # #   halves a user's assigned score if the have the role "Naughty Corner"
+    # nc_status = await user_is_naughty(message)
+    # if nc_status:
+    #     score_addition = score_addition / 2
+    #
+    # #   sets a user's assigned score to zero if the have the role "Very Naughty Corner"
+    # vnc_status = await user_is_very_naughty(message)
+    # if vnc_status:
+    #     score_addition = score_addition / 4
 
     #   fetches the info of the resident who sent the message, and adds the score via the db
     user_id = message.author.id
