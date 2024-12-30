@@ -13,12 +13,11 @@ from modules.logging import *
 from modules.vin_ok_bro_contingency import *
 
 #   connects to the server via id
-if os.environ.get("PRODUCTION"):
-    intents = discord.Intents.default()
-    intents.members = True
-    client = discord.Client(intents=intents)
-else:
-    client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+intents.messages = True
+intents.message_content = True
+client = discord.Client(intents=intents)
 
 #   global variables
 resident_roster = []
@@ -37,7 +36,9 @@ async def on_ready():
     for guild in client.guilds:
         print(f'{client.user} is connected to the following guilds:\n'
               f'{guild.name} id {guild.id}')
-        members_list = await guild.fetch_members(limit=200).flatten()
+        members_list = []
+        for member in guild.members:
+            members_list.append(member)
         for dweller in members_list:
             resident_roster.append(Resident(dweller.name, dweller.id))
     population_of_resident_database(resident_roster)
@@ -66,9 +67,9 @@ async def on_message(message):
 
 
 @client.event
-async def on_message_edit(after, message):
+async def on_message_edit(before, after):
 
-    await log_edited_message(after, message)
+    await log_edited_message(before, after)
 
 
 @client.event

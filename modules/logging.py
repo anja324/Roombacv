@@ -1,10 +1,10 @@
 from utilities.json_tokens import JsonConfig
 
 
-async def log_edited_message(message, after):
-    await JsonConfig.channel.topLevelAudits.send(f"```Message edited.\nChannel: {message.channel}\n"
-                                                 f"Author: {message.author}\n"
-                                                 f"Original Message: {message.content}\n"
+async def log_edited_message(before, after):
+    await JsonConfig.channel.topLevelAudits.send(f"```Message edited.\nChannel: {before.channel}\n"
+                                                 f"Author: {before.author}\n"
+                                                 f"Original Message: {before.content}\n"
                                                  f"Edited Message: {after.content}```")
 
 
