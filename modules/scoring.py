@@ -28,12 +28,15 @@ async def tabulate_message_score(message):
     if len(message.embeds) == 1 or len(message.attachments) == 1:
         embed_attach_status = True
 
-    #   assigns point value to embeds/attachments, messages longer than 10 words, and messages shorter than 10 words
     if embed_attach_status is True:
         score_addition = 5
-    elif len(no_punct_list) > 10:
+    elif len (no_punct_list) >= 80:
+        score_addition = 0
+    elif len(no_punct_list) in range(20-80):
+        score_addition = 20
+    elif len(no_punct_list) in range(10, 20):
         score_addition = len(no_punct_list) * 1
-    elif len(no_punct_list) < 10:
+    elif len(no_punct_list) <= 9:
         score_addition = len(no_punct_list) * .5
 
     #   fetches the info of the resident who sent the message, and adds the score via the db
