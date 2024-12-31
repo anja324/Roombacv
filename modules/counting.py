@@ -1,12 +1,13 @@
 from database.database_functions import *
 from utilities.user_identification import *
+from utilities.json_tokens import JsonConfig 
 from modules.scoring import *
 
 
 async def check_counted_number(message):
 
     #   checks to see if message was sent in the counting channel
-    if message.channel.name == "the-counting-room":
+    if message.channel.id == JsonConfig.channel.theCountingRoom.id:
         #   checks to see if message is an integer, if it is not, it is deleted
         counted_number = message.content
         try:
@@ -31,6 +32,7 @@ async def check_counted_number(message):
             amount_to_add = 1
             await add_count_score(user_id, amount_to_add)
             return
+
 
 
 
