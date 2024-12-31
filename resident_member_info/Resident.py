@@ -51,7 +51,8 @@ async def accept_new_resident(member, resident_roster):
     await JsonConfig.channel.audits.send(f"New User: {member}!")
     await JsonConfig.channel.lounge.send(f"You have arrived at Anja's House!  Welcome to the family <3.  "
                                           f"Please mind the rules, found in {JsonConfig.channel.rules.mention}."
-                                          f"If you are a rat and wish to be added to the 'Fuel Rat' group, please hit up an admin or a mod.")
+                                          f" The following roles are available to be given by a mod/admin:"
+                                          f" Fuel Rat, RPGs(usually tabletops), Warframe, Star Citizen, Book Club(we try every year or so)")
 
     #   Adds to DB
     new_res = Resident(member.name, member.id)
