@@ -39,15 +39,15 @@ async def tabulate_message_score(message):
     elif len(no_punct_list) <= 9:
         score_addition = len(no_punct_list) * .5
 
-    # #   halves a user's assigned score if the have the role "Naughty Corner"
-    # nc_status = await user_is_naughty(message)
-    # if nc_status:
-    #     score_addition = score_addition / 2
-    #
-    # #   sets a user's assigned score to zero if the have the role "Very Naughty Corner"
-    # vnc_status = await user_is_very_naughty(message)
-    # if vnc_status:
-    #     score_addition = score_addition / 4
+    #   halves a user's assigned score if the have the role "Naughty Corner"
+    nc_status = await user_is_naughty(message)
+    if nc_status:
+        score_addition = score_addition / 2
+
+    #   sets a user's assigned score to zero if the have the role "Very Naughty Corner"
+    vnc_status = await user_is_very_naughty(message)
+    if vnc_status:
+        score_addition = score_addition / 4
 
     #   fetches the info of the resident who sent the message, and adds the score via the db
     user_id = message.author.id
