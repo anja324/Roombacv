@@ -81,21 +81,25 @@ async def spritz(message):
         elif is_int(no_punct_list[2]) is None:
             await message.channel.send("Please use an integer to properly spritz.")
         elif int(no_punct_list[2]) > 5:
-            await message.channel.send("Your spritz was too high.  Perhaps if the offense was this serious it should be 'discussed'.")
+            await message.channel.send(
+                "Your spritz was too high.  Perhaps if the offense was this serious it should be 'discussed'.")
         elif int(no_punct_list[2]) < 1:
-            await message.channel.send("If you want to spritz, you should probably pick a positive integer between 0 and 6")
+            await message.channel.send(
+                "If you want to spritz, you should probably pick a positive integer between 0 and 6")
         else:
             user_id, user_nick = await mentions_information(message)
             user_score = await score_query(user_id)
-            spritz_amount = int(round(((int(no_punct_list[2])*user_score)/100), 0))
+            spritz_amount = int(round(((int(no_punct_list[2]) * user_score) / 100), 0))
             raincoat_status = await retrieve_raincoat(user_id)
             if raincoat_status == 1:
-                await message.channel.send(f"Your raincoat has kept you from being spritzed {spritz_amount} AnjaPoints™️.")
+                await message.channel.send(
+                    f"Your raincoat has kept you from being spritzed {spritz_amount} AnjaPoints™️.")
                 await raincoat_die_roll(user_id, message)
                 return
             else:
                 await deduct_from_score(user_id, spritz_amount)
-                await message.channel.send(f"{user_nick}'s balance has been docked {spritz_amount} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")
+                await message.channel.send(
+                    f"{user_nick}'s balance has been docked {spritz_amount} AnjaPoints™️. <:spritzer:{JsonConfig.emoji.spritzer}>")
 
 
 async def cookie(message):
@@ -195,14 +199,48 @@ async def bot_control(message):
 
 
 async def roll_die(message):
+    """
+    Rolls a specified number of dice with a specified number of sides.
 
+    :param message: the contents of the raw user message
+    :return: None
+    """
+
+    #   separates user request from command message and checks that it is properly formatted as a command
     no_punct_list, lowered_message = tidying_caps_punct(message)
     if len(no_punct_list) > 2 or len(no_punct_list) < 2:
         await message.channel.send("Invalid command structure, maybe take a look at help.")
-    valid_die = is_int(no_punct_list[1])
-    if valid_die is None:
+        return
+    #   separates the number of dice and the number of sides, discards the "d"
+    desired_roll = no_punct_list[1]
+
+    if len(desired_roll.split("d")) != 2:
+        await message.channel.send("Invalid command structure, maybe read the description in the help text.")
+        return
+
+    number_of_dice = desired_roll.split("d")[0]
+    number_of_sides = desired_roll.split("d")[1]
+
+    #   Checks that number of dice and sides are integers, and not stupid large
+    if not is_int(number_of_dice):
         await message.channel.send("Try using a number that doesn't break the universe, genius.")
+    elif not is_int(number_of_sides):
+        await message.channel.send("Try using a number that doesn't break the universe, genius.")
+    elif int(number_of_dice) > 100:
+        await message.channel.send("Isn't rolling that many dice a little excessive?  Maybe you should reevaluate your choices.")
+    elif int(number_of_sides) > 1000:
+        await message.channel.send("Isn't rolling a die that big a little excessive?  Maybe you should reevaluate your choices.")
+
+    #   rolls specified number of dice, formats results, and sends to channel
     else:
-        roll_it = random.randint(1, valid_die)
-        await message.channel.send(roll_it)
+        roll_results = []
+        number_of_dice = int(number_of_dice)
+        number_of_sides = int(number_of_sides)
+        while len(roll_results) != number_of_dice:
+            roll_it = random.randint(1, number_of_sides)
+            roll_results.append(str(roll_it))
+        pretty_rolls = ", ".join(roll_results)
+        await message.channel.send(pretty_rolls)
+
+
 
