@@ -100,3 +100,35 @@ async def deduct_from_score(user_id, amount_to_deduct):
     change_it = "UPDATE residents SET score = score - ? WHERE id_number = ?"
     Database.cursor.execute(change_it, (amount_to_deduct, user_id))
     Database.res_db_conn.commit()
+
+
+async def add_count_score(user_id, amount_to_add):
+    """
+    adds the designated amount to the user's count score
+
+    :param user_id: the id of the user whose information will change
+    :param amount_to_add: the id of the user whose information will change
+    :return: None
+    """
+
+    change_it = "UPDATE residents SET count_number = count_number + ? WHERE id_number = ?"
+    Database.cursor.execute(change_it, (amount_to_add, user_id))
+    Database.res_db_conn.commit()
+
+
+async def count_score_query(user_id):
+    """
+    Retrieves the count score of the requested user
+
+    :param user_id: the id of the requested user
+    :return: count_score
+    """
+
+    retrieve_count_score = """SELECT count_number
+                        FROM residents
+                        WHERE id_number == (?)"""
+
+    Database.cursor.execute(retrieve_count_score, (user_id,))
+    raw_score, = Database.cursor.fetchone()
+    score = int(round(raw_score, 0))
+    return score

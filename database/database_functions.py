@@ -21,7 +21,7 @@ def connect_andor_create_resident_database():
 
     #   creates a database for residents if one does not already exist
     cursor.execute("""CREATE TABLE IF NOT EXISTS residents 
-                        (id_number INTEGER NOT NULL PRIMARY KEY, name TEXT, score INTEGER, monthly INTEGER, weekly INTEGER, daily INTEGER, raincoat INTEGER, raincoat_die_roll INTEGER)""")
+                        (id_number INTEGER NOT NULL PRIMARY KEY, name TEXT, score INTEGER, monthly INTEGER, weekly INTEGER, daily INTEGER, raincoat INTEGER, raincoat_die_roll INTEGER, count_number INTEGER)""")
     res_db_conn.commit()
 
     Database.cursor = cursor
@@ -53,5 +53,19 @@ async def retrieve_leaderboard():
     Database.cursor.execute(retrieve_all_scores)
     score_name_list = Database.cursor.fetchall()
     return score_name_list
+
+
+async def retrieve_count_leaderboard():
+    """
+    gets name, count score from the database
+
+    :return:list of tuples (id, score)
+    """
+
+    retrieve_all_scores = "SELECT count_number, name FROM residents ORDER BY count_number DESC"
+    Database.cursor.execute(retrieve_all_scores)
+    score_name_list = Database.cursor.fetchall()
+    return score_name_list
+
 
 

@@ -9,3 +9,6 @@
 !cookie <@user> <number>: gibs cookies worth 10 AnjaPoints(tm)
 !pointstore: opens the list of currently available purchases
 !rolldie <xdy>: rolls a die where x is the number of dice and y is the number of sides on the dice
+!count <@user>: retrieves the number of times a user has counted
+!mycount: retrieves the number of times you have counted
+!countleaderboard: retrieves all users and the number of times they have counted

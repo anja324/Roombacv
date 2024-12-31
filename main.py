@@ -11,6 +11,7 @@ from utilities.command_identifier import create_command_dict, command_exists
 from modules.scoring import *
 from modules.logging import *
 from modules.vin_ok_bro_contingency import *
+from modules.counting import *
 
 #   connects to the server via id
 intents = discord.Intents.default()
@@ -64,6 +65,7 @@ async def on_message(message):
     await easter_eggs(message, easter_egg_dict, lowered_message)
     await tabulate_message_score(message)
     await someone_cheated(message)
+    await check_counted_number(message)
 
 
 @client.event

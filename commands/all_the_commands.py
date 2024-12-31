@@ -243,4 +243,47 @@ async def roll_die(message):
         await message.channel.send(pretty_rolls)
 
 
+async def fetch_count_balance(message):
+    """
+    retrieves and prints the score of a user
+
+    :param message: the contents of the raw user message
+    :return: None
+    """
+
+    no_punct_list, lowered_message = tidying_caps_punct(message)
+    if len(no_punct_list) == 1:
+        await my_count_balance(message)
+    else:
+        user_id, user_nick = await mentions_information(message)
+        count_score = await count_score_query(user_id)
+        if count_score is None:
+            await message.channel.send(f"Error: User or balance not found.")
+            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
+        else:
+            await JsonConfig.channel.botSpam.send(f"{user_nick}'s current total count is {count_score} numbers. Ah ah ah.")
+
+
+async def my_count_balance(message):
+    """
+    retrieves and prints the count score of the user who calls it
+
+    :param message: the contents of the raw user message
+    :return: None
+    """
+
+    no_punct_list, lowered_message = tidying_caps_punct(message)
+    if len(no_punct_list) == 1:
+        user_id = message.author.id
+        user_nick = message.author.nick
+        if user_nick is None:
+            user_nick = message.author.name
+        count_score = await count_score_query(user_id)
+        if count_score is None:
+            await message.channel.send(f"Error: User or balance not found.")
+            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
+        else:
+            await JsonConfig.channel.botSpam.send(f"{user_nick}, your current total count is {count_score} numbers. Ah ah ah.")
+    else:
+        await message.channel.send(f"Error: !mycountbalance does not take any parameters.")
 
