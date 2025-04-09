@@ -14,7 +14,7 @@ def connect_andor_create_resident_database():
     """
 
     #   creates a connection with the database
-    res_db_conn = sqlite3.connect("database/resident_database.db")
+    res_db_conn = sqlite3.connect("db/resident_database.db")
 
     #   creates a cursor object for accessing and altering pieces of the database
     cursor = res_db_conn.cursor()

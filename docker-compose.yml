@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  discord-bot:
+    build: .
+    container_name: my-discord-bot
+    volumes:
+      - ./db:/app/db           # Mount only the sqlite storage
+      - ./tokens:/app/tokens   # Mount tokens config
+    restart: unless-stopped
