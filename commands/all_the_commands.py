@@ -308,3 +308,23 @@ async def event_cupcake(message):
             await add_to_score(user_id, amount_to_add)
             await message.channel.send(f"{user_nick} has been given a cupcake for attending an event!  Thanks for coming out! 🧁")
 
+
+async def event_cake(message):
+    """
+    Gives the mentioned users a "cake" worth 500 points
+    :param message: The raw user inputted message
+    :return:None
+    """
+
+    mod_status = await user_is_mod(message)
+    if mod_status is False:
+        await message.channel.send("You are unauthorized to bake a cake.")
+    else:
+        no_punct_list, lowered_message, = tidying_caps_punct(message)
+        if len(no_punct_list) != 2:
+            await message.channel.send("Incorrect command structure.  Please consult !help for additional assistance.")
+        else:
+            user_id, user_nick = await mentions_information(message)
+            amount_to_add = 500
+            await add_to_score(user_id, amount_to_add)
+            await message.channel.send(f"{user_nick} has been given a cake for organizing an attended event!  Thanks for being a part of our community 💛 🎂")
