@@ -5,8 +5,8 @@ spritz spritz
 help need_help
 buyraincoat buy_raincoat
 cookie cookie
-nom nom
-uwu uwu
+nom gif_purchase
+uwu gif_purchase
 pointstore open_point_store
 mybalance my_balance
 bottomfive leaderboard_bottom_five
@@ -15,11 +15,11 @@ leaderboard leaderboard
 top10 leaderboard_top_ten
 topten leaderboard_top_ten
 speak bot_control
-okbro ok_bro
+okbro gif_purchase
 rolldie roll_die
 count fetch_count_balance
 mycount my_count_balance
 countleaderboard count_leaderboard
 eventcupcake event_cupcake
 eventcake event_cake
-lizard lizard
+lizard gif_purchase
