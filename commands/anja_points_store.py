@@ -92,6 +92,6 @@ async def lizard(message):
         amount_to_deduct = 500
         await deduct_from_score(user_id, amount_to_deduct)
         await message.channel.send("You have spent 500 AnjaPoints™️")
-        await message.channel.send("https://tenor.com/uEjmKVTvLMg.gif")
+        await message.channel.send("https://tenor.com/view/lizard-lizard-lizard-button-lizard-tom-the-lizard-pixar-gif-17194109322617058326")
     else:
         await message.channel.send("You cannot afford to let the lizard spank.")

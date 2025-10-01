@@ -6,7 +6,7 @@ async def someone_cheated(message):
     determines whether someone used a gif he should have paid for in the user message, charges the user,
       and logs occurrence in a logs channel
     """
-    list_of_purchases = ["https://tenor.com/view/ok-bro-gif-23915781", "https://tenor.com/view/cookies-gif-14785632", "https://tenor.com/bpHsW.gif"]
+    list_of_purchases = ["https://tenor.com/view/ok-bro-gif-23915781", "https://tenor.com/view/cookies-gif-14785632", "https://tenor.com/bpHsW.gif", "https://tenor.com/view/lizard-lizard-lizard-button-lizard-tom-the-lizard-pixar-gif-17194109322617058326"]
 
     user_id = message.author.id
     double_price = 1000
@@ -25,6 +25,12 @@ async def someone_cheated(message):
     elif message.content == list_of_purchases[2]:
         await deduct_from_score(user_id, double_price)
         await message.channel.send(f"You have attempted to uwu without paying.  Shame on you.  Your balance has been reduced by double the cost ({double_price} AnjaPoints™️)")
+
+    #   lizard
+    elif message.content == list_of_purchases[3]:
+        await deduct_from_score(user_id, double_price)
+        await message.channel.send(f"You have attempted to lizard without paying.  Shame on you.  Your balance has been reduced by double the cost ({double_price} AnjaPoints™️)")
+
 
     else:
         return
