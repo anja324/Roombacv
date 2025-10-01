@@ -77,3 +77,21 @@ async def ok_bro(message):
         await message.channel.send("https://tenor.com/view/ok-bro-gif-23915781")
     else:
         await message.channel.send("You cannot afford to ogle those washboard abs.")
+
+
+async def lizard(message):
+    """
+    Posts a gif of a lizard and deducts 500 points from the user
+    :param message: The raw user inputted message
+    :return:
+    """
+
+    user_id = message.author.id
+    current_score = await score_query(user_id)
+    if current_score >= 500:
+        amount_to_deduct = 500
+        await deduct_from_score(user_id, amount_to_deduct)
+        await message.channel.send("You have spent 500 AnjaPoints™️")
+        await message.channel.send("https://tenor.com/uEjmKVTvLMg.gif")
+    else:
+        await message.channel.send("You cannot afford to let the lizard spank.")
