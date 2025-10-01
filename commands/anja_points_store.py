@@ -40,7 +40,7 @@ def store_gif_dict_creation():
 
     store_gif_file = open("text_files/point_store_gifs", "r")
     store_gif_list = []
-    store_gif_dict = {}
+    store_gif_dict_init = {}
 
     for line in store_gif_file:
         gif = line.split(" ", 3)
@@ -48,9 +48,9 @@ def store_gif_dict_creation():
 
     for gif in store_gif_list:
         gif_to_add = PurchasableGif(*gif)
-        store_gif_dict[gif_to_add.name] = gif_to_add
+        store_gif_dict_init[gif_to_add.name] = gif_to_add
 
-    return store_gif_dict
+    return store_gif_dict_init
 
 
 async def gif_purchase(message):
@@ -59,7 +59,7 @@ async def gif_purchase(message):
     :param message: The raw user inputted message
     :return:
     """
-    #   creates gif dictionary
+
     #   retrieves author score information
     user_id = message.author.id
     current_score = await score_query(user_id)
@@ -75,4 +75,3 @@ async def gif_purchase(message):
         await message.channel.send(requested_gif.rejection_message)
 
 store_gif_dict = store_gif_dict_creation()
-
