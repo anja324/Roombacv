@@ -1,5 +1,6 @@
 from modules.raincoat import retrieve_raincoat, raincoat_db_add
 from modules.scoring import deduct_from_score, score_query
+from utilities.normalization import tidying_caps_punct
 
 
 async def buy_raincoat(message):
@@ -71,7 +72,8 @@ async def gif_purchase(message):
     user_id = message.author.id
     current_score = await score_query(user_id)
     #   identify desired gif
-    requested_gif = store_gif_dict.get(message.content)
+    no_punc_list, lowered_message = tidying_caps_punct(message)
+    requested_gif = store_gif_dict.get(lowered_message)
     #   determine if gif is eligible to be purchased and sends gif or rejection message
     if current_score >= int(requested_gif.cost):
         amount_to_deduct = requested_gif.cost

@@ -31,7 +31,6 @@ async def someone_cheated(message):
         await deduct_from_score(user_id, double_price)
         await message.channel.send(f"You have attempted to lizard without paying.  Shame on you.  Your balance has been reduced by double the cost ({double_price} AnjaPoints™️)")
 
-
     else:
         return
 
