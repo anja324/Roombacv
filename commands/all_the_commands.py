@@ -1,61 +1,46 @@
 import random
 
 from modules.raincoat import raincoat_die_roll, retrieve_raincoat
-from utilities.message_information_grabs import *
 from utilities.json_tokens import JsonConfig
+from utilities.message_information_grabs import *
 from utilities.tools import *
 from modules.scoring import *
 from utilities.user_identification import user_is_mod
 
 
-#   Should restructure so that all the functions which add are together, subtract are together, and get info are together
-#   Should combine fetch_balance and my_balance
+
 async def fetch_balance(message):
     """
-    retrieves and prints the score of a user
-
-    :param message: the contents of the raw user message
-    :return: None
-    """
-
-    no_punct_list, lowered_message = tidying_caps_punct(message)
-    if len(no_punct_list) == 1:
-        await my_balance(message)
-    else:
-        user_id, user_nick = await mentions_information(message)
-        score = await score_query(user_id)
-        if score is None:
-            await message.channel.send(f"Error: User or balance not found.")
-            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
-        else:
-            await JsonConfig.channel.botSpam.send(f"{user_nick}'s current balance is {score} AnjaPoints™️.")
-
-
-async def my_balance(message):
-    """
     retrieves and prints the score of the user who calls it
+    previously my balance
 
     :param message: the contents of the raw user message
     :return: None
     """
-
+    #   fetches list of message information, normalized and split on spaces
     no_punct_list, lowered_message = tidying_caps_punct(message)
+    #   if no parameter is provided, returns score of user who made request
     if len(no_punct_list) == 1:
         user_id = message.author.id
         user_nick = message.author.nick
         if user_nick is None:
             user_nick = message.author.name
         score = await score_query(user_id)
-        if score is None:
-            await message.channel.send(f"Error: User or balance not found.")
-            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
-        else:
-            await JsonConfig.channel.botSpam.send(f"{user_nick}, your current balance is {score} AnjaPoints™️.")
+    #   if a parameter is provided, examines to ensure it's a mention, and returns score of mentioned user (or bounces back)
+    elif len(no_punct_list) == 2:
+        user_id, user_nick = await mentions_information(message)
+        score = await score_query(user_id)
     else:
-        await message.channel.send(f"Error: !mybalance does not take any parameters.")
+        await message.channel.send(f"Error: Incorrect balance requesting structure, please reference !help for more information.")
+    #   Misc error catchall for if no score is found in the DB (error on creation, likely)
+    if score is None:
+        await message.channel.send(f"Error: User or balance not found.")
+        await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
+    #   sends the damn thing
+    else:
+        await JsonConfig.channel.botSpam.send(f"{user_nick}'s current balance is {score} AnjaPoints™️.")
 
 
-#   I suspect this can be tidied some
 async def spritz(message):
     """
     removes points from the designated user
@@ -66,7 +51,7 @@ async def spritz(message):
 
     mod_status = await user_is_mod(message)
     if mod_status is False:
-        amount_to_deduct = 5
+        amount_to_deduct = 50
         user_id = message.author.id
         user_nick = message.author.nick
         if user_nick is None:
@@ -175,8 +160,8 @@ async def bot_control(message):
     :param message: the contents of the raw user message
     :return: None
     """
-    can_make_roomby_speak = await user_is_mod(message)
-    if can_make_roomby_speak is True:
+    is_mod = await user_is_mod(message)
+    if is_mod is True:
         channel_info_list = message.channel_mentions
         if len(channel_info_list) > 1 or len(channel_info_list) < 1:
             await message.channel.send("You done effed up.  Please make sure you mention exactly one channel")
@@ -223,14 +208,10 @@ async def roll_die(message):
     number_of_sides = desired_roll.split("d")[1]
 
     #   Checks that number of dice and sides are integers, and not stupid large
-    if not is_int(number_of_dice):
+    if not is_int(number_of_dice) or not is_int(number_of_sides):
         await message.channel.send("Try using a number that doesn't break the universe, genius.")
-    elif not is_int(number_of_sides):
-        await message.channel.send("Try using a number that doesn't break the universe, genius.")
-    elif int(number_of_dice) > 100:
-        await message.channel.send("Isn't rolling that many dice a little excessive?  Maybe you should reevaluate your choices.")
-    elif int(number_of_sides) > 1000:
-        await message.channel.send("Isn't rolling a die that big a little excessive?  Maybe you should reevaluate your choices.")
+    elif int(number_of_dice) > 100 or int(number_of_sides) > 1000:
+        await message.channel.send("Isn't rolling that many a little excessive?  Maybe you should reevaluate your choices.")
 
     #   rolls specified number of dice, formats results, and sends to channel
     else:
@@ -243,89 +224,66 @@ async def roll_die(message):
         pretty_rolls = ", ".join(roll_results)
         await message.channel.send(pretty_rolls)
 
-#   Could combine this and my count balance
+
 async def fetch_count_balance(message):
     """
-    retrieves and prints the score of a user
-
-    :param message: the contents of the raw user message
-    :return: None
-    """
-
-    no_punct_list, lowered_message = tidying_caps_punct(message)
-    if len(no_punct_list) == 1:
-        await my_count_balance(message)
-    else:
-        user_id, user_nick = await mentions_information(message)
-        count_score = await count_score_query(user_id)
-        if count_score is None:
-            await message.channel.send(f"Error: User or balance not found.")
-            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
-        else:
-            await JsonConfig.channel.botSpam.send(f"{user_nick}'s current total count is {count_score} numbers. Ah ah ah.")
-
-
-async def my_count_balance(message):
-    """
     retrieves and prints the count score of the user who calls it
-
+    formerly my_count_balance
     :param message: the contents of the raw user message
     :return: None
     """
-
+    #   retrieves user request info from message
     no_punct_list, lowered_message = tidying_caps_punct(message)
+
+    #   if no parameter is provided, returns a score for the message author
     if len(no_punct_list) == 1:
         user_id = message.author.id
         user_nick = message.author.nick
         if user_nick is None:
             user_nick = message.author.name
         count_score = await count_score_query(user_id)
-        if count_score is None:
-            await message.channel.send(f"Error: User or balance not found.")
-            await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
-        else:
-            await JsonConfig.channel.botSpam.send(f"{user_nick}, your current total count is {count_score} numbers. Ah ah ah.")
+    #   if parameter is provided, ensures it is a mention, and returns their score (or bounces back)
+    elif len(no_punct_list) == 2:
+        user_id, user_nick = await mentions_information(message)
+        count_score = await count_score_query(user_id)
     else:
-        await message.channel.send(f"Error: !mycountbalance does not take any parameters.")
+        await message.channel.send(f"Error: Incorrect balance requesting structure, please reference !help for more information.")
 
-
-async def event_cupcake(message):
-    """
-    Gives the mentioned users a "cupcake" worth 250 points
-    :param message: The raw user inputted message
-    :return:None
-    """
-
-    mod_status = await user_is_mod(message)
-    if mod_status is False:
-        await message.channel.send("You are unauthorized to bake cupcakes.")
+    #   Misc error catchall for if no score is found in the DB (error on creation, likely)
+    if count_score is None:
+        await message.channel.send(f"Error: User or balance not found.")
+        await JsonConfig.channel.audits.send(f"Balance query returned None in {message.channel}.")
+    #   Does the damn thing
     else:
-        no_punct_list, lowered_message, = tidying_caps_punct(message)
-        if len(no_punct_list) != 2:
-            await message.channel.send("Incorrect command structure.  Please consult !help for additional assistance.")
-        else:
-            user_id, user_nick = await mentions_information(message)
-            amount_to_add = 250
-            await add_to_score(user_id, amount_to_add)
-            await message.channel.send(f"{user_nick} has been given a cupcake for attending an event!  Thanks for coming out! 🧁")
+        await JsonConfig.channel.botSpam.send(f"{user_nick}'s current total count is {count_score} numbers. Ah ah ah.")
 
 
-async def event_cake(message):
+async def bake_cake(message):
     """
     Gives the mentioned users a "cake" worth 500 points
     :param message: The raw user inputted message
     :return:None
     """
-
+    #   checks mod status
     mod_status = await user_is_mod(message)
     if mod_status is False:
-        await message.channel.send("You are unauthorized to bake a cake.")
+        await message.channel.send("You are unauthorized to bake.")
+    #   checks user provided parameters
     else:
         no_punct_list, lowered_message, = tidying_caps_punct(message)
         if len(no_punct_list) != 2:
             await message.channel.send("Incorrect command structure.  Please consult !help for additional assistance.")
+        #   finds user identity
         else:
             user_id, user_nick = await mentions_information(message)
-            amount_to_add = 500
-            await add_to_score(user_id, amount_to_add)
-            await message.channel.send(f"{user_nick} has been given a cake for organizing an attended event!  Thanks for being a part of our community 💛 🎂")
+            #   sends smaller amount for attendee
+            if no_punct_list[0] == "eventcupcake":
+                amount_to_add = 250
+                await add_to_score(user_id, amount_to_add)
+                await message.channel.send(
+                    f"{user_nick} has been given a cupcake for attending an event!  Thanks for coming out! 🧁")
+            #   sends larger amount for organizer
+            elif no_punct_list[0] == "eventcake":
+                amount_to_add = 500
+                await add_to_score(user_id, amount_to_add)
+                await message.channel.send(f"{user_nick} has been given a cake for organizing an attended event!  Thanks for being a part of our community 💛 🎂")

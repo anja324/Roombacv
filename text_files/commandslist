@@ -8,7 +8,7 @@ cookie cookie
 nom gif_purchase
 uwu gif_purchase
 pointstore open_point_store
-mybalance my_balance
+mybalance fetch_balance
 bottomfive leaderboard_bottom_five
 bottom5 leaderboard_bottom_five
 leaderboard leaderboard
@@ -18,8 +18,8 @@ speak bot_control
 okbro gif_purchase
 rolldie roll_die
 count fetch_count_balance
-mycount my_count_balance
+mycount fetch_count_balance
 countleaderboard count_leaderboard
-eventcupcake event_cupcake
-eventcake event_cake
+eventcupcake bake_cake
+eventcake bake_cake
 lizard gif_purchase
