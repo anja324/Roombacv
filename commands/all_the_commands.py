@@ -1,15 +1,15 @@
 import random
 
 from modules.raincoat import raincoat_die_roll, retrieve_raincoat
-from modules.scoring import score_query
 from utilities.message_information_grabs import *
 from utilities.json_tokens import JsonConfig
-from utilities.normalization import tidying_caps_punct
 from utilities.tools import *
 from modules.scoring import *
 from utilities.user_identification import user_is_mod
 
 
+#   Should restructure so that all the functions which add are together, subtract are together, and get info are together
+#   Should combine fetch_balance and my_balance
 async def fetch_balance(message):
     """
     retrieves and prints the score of a user
@@ -55,6 +55,7 @@ async def my_balance(message):
         await message.channel.send(f"Error: !mybalance does not take any parameters.")
 
 
+#   I suspect this can be tidied some
 async def spritz(message):
     """
     removes points from the designated user
@@ -242,7 +243,7 @@ async def roll_die(message):
         pretty_rolls = ", ".join(roll_results)
         await message.channel.send(pretty_rolls)
 
-
+#   Could combine this and my count balance
 async def fetch_count_balance(message):
     """
     retrieves and prints the score of a user
