@@ -137,9 +137,9 @@ async def cookie(message):
         elif is_int(no_punct_list[2]) is None:
             await message.channel.send("Please use an integer to properly gib cookies.")
         else:
-            number = is_int(no_punct_list[2])
+            number = is_int(no_punct_list[1])
             user_id, user_nick = await mentions_information(message)
-            amount_to_add = number * 10
+            amount_to_add = (int(number) * 10)
             await add_to_score(user_id, amount_to_add)
             await message.channel.send(f"{user_nick} has been given {number} cookies. 🍪")
 
